@@ -1,0 +1,25 @@
+* {
+  font-family: 'helvetica', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  outline: none;
+  color: #000;
+}
+*:focus {
+   outline: none;
+}
+html {
+  font-size: 16px;
+}
+body {
+  position: relative;
+}
+ul {
+  padding: 0;
+}
+li {
+  list-style: none;
+}
+#webpack-hot-middleware-clientOverlay * {
+ color: #fff;
+ font-family: Menlo, Consolas, monospace;
+}
