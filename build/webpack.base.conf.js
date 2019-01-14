@@ -18,13 +18,19 @@ module.exports = {
     rules: [
       {
         enforce: 'pre',
-        test: /\.ts$/,
+        test: /\.(ts|js)$/,
         loader: 'eslint-loader',
         exclude: /node_modules/
       },
       {
         test: /\.ts$/,
-        use: [ 'ts-loader' ]
+        use: [ 'ts-loader' ],
+        exclude: /node_modules/
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
       }
     ]
   },
@@ -35,6 +41,5 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
-  },
-  target: 'node'
-};
+  }
+}
