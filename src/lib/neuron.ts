@@ -25,9 +25,6 @@ export class Neuron {
    */
   private diffedActivation: number = 0;
 
-  private parents: Neuron[];
-  private children: Neuron[];
-
   constructor (id: string = 'anonymous-neuron', weights: number[]) {
     this.id = id;
     this.weights = [...weights];
@@ -39,14 +36,6 @@ export class Neuron {
       throw new Error(`Error in ${this.id} :: ${inputs.length} is must be ${this.variableLength}`);
     }
     this.inputs = [...inputs];
-  }
-
-  public setParents (neurons: Neuron[]) {
-    this.parents = neurons;
-  }
-
-  public setChildren (neurons: Neuron[]) {
-    this.children = neurons;
   }
 
   public calc () {

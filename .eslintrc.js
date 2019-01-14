@@ -9,7 +9,8 @@ module.exports = {
       'objects': 'always-multiline',
       'imports': 'never',
       'exports': 'never',
-      'functions': 'never'
-    }]
+      'functions': 'never',
+    }],
+    'no-unused-vars': 0,
   }
 };

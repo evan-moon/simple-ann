@@ -21,38 +21,23 @@ for (let i = 0; i < networkOption.layerCount; i++) {
 }
 
 layers.forEach((layer, layerIndex) => {
-  layer.forEach(neuron => {
-    const prevLayer = layers[layerIndex - 1];
-    const nextLayer = layers[layerIndex + 1];
-    if (prevLayer) {
-      neuron.setParents(prevLayer);
-    }
-    if (nextLayer) {
-      neuron.setChildren(nextLayer);
-    }
-  });
+  const prevLayer = layers[layerIndex - 1];
+  const nextLayer = layers[layerIndex + 1];
+
+  if (prevLayer) {
+    layer.setPrevLayer(prevLayer);
+  }
+  if (nextLayer) {
+    layer.setNextLayer(nextLayer);
+  }
 });
 
 // set Inputs to neuron in first layer
-layers[0].forEach(v => {
-  v.setInputs(inputs);
-});
-
-console.log(layers);
+layers[0].setInputs(inputs);
 
 // start front propagation
-layers.forEach((layer, layerIndex) => {
-  const results = [];
-  layer.forEach(neuron => {
-    neuron.calc();
-    results.push(neuron.getCalcedResult());
-  });
-  if (layer[layerIndex + 1]) {
-    layer[layerIndex + 1].forEach(neuron => {
-      neuron.setInputs(results);
-      neuron.calc();
-    });
-  }
+layers.forEach(layer => {
+  console.log(layer);
 });
 
 // const testNeuron = new Neuron('test', [Math.random(), Math.random()]);
