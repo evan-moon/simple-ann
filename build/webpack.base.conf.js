@@ -1,18 +1,18 @@
-const path = require('path')
+const path = require('path');
 
 module.exports = {
   entry: './src/index.ts',
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
   },
   resolve: {
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     extensions: ['.js', '.ts'],
     alias: {
       'src': path.resolve(__dirname, '../src'),
-      'lib': path.resolve(__dirname, '../src/lib')
-    }
+      'lib': path.resolve(__dirname, '../src/lib'),
+    },
   },
   module: {
     rules: [
@@ -20,19 +20,23 @@ module.exports = {
         enforce: 'pre',
         test: /\.(ts|js)$/,
         loader: 'eslint-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.ts$/,
         use: [ 'ts-loader' ],
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
       }
-    ]
+    ],
   },
   node: {
     setImmediate: false,
@@ -40,6 +44,6 @@ module.exports = {
     fs: 'empty',
     net: 'empty',
     tls: 'empty',
-    child_process: 'empty'
-  }
-}
+    child_process: 'empty',
+  },
+};

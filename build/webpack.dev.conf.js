@@ -8,9 +8,9 @@ module.exports = merge(baseConf, {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Development',
+      template: 'src/index.html',
       showErrors: true,
-    }),
+    })
   ],
   devtool: 'inline-source-map',
   devServer: {
