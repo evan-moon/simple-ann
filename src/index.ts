@@ -1,3 +1,9 @@
-import Hello from 'lib/test'
+import 'src/styles';
+import 'lib/network';
+// import * as d3 from 'd3';
 
-console.log(Hello())
+function init () {
+  console.log('App initialize Start');
+}
+
+init();

@@ -4,7 +4,8 @@
     "paths": {
       "*": ["*"],
       "src/*": ["src/*"],
-      "lib/*": ["src/lib/*"]
+      "lib/*": ["src/lib/*"],
+      "config/*": ["src/config/*"],
     },
     "module": "esnext",
     "target": "es5",

@@ -12,6 +12,7 @@ module.exports = {
     alias: {
       'src': path.resolve(__dirname, '../src'),
       'lib': path.resolve(__dirname, '../src/lib'),
+      'config': path.resolve(__dirname, '../src/config'),
     },
   },
   module: {
