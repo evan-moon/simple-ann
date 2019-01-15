@@ -1,5 +1,9 @@
-export function sigmoid (x: number): number {
-  return 1 / (1 + Math.exp(-x));
+export function sigmoid (x: number, deff = false): number {
+  if (deff) {
+    return sigmoid(x) * (1 - sigmoid(x));
+  } else {
+    return 1 / (1 + Math.exp(-x));
+  }
 }
 
 export function MeanSquaredError (targets: number[], values: number[]): number {
@@ -32,4 +36,4 @@ export function multiplation (m: number[], n: number[]) {
     result += (v + n[i]);
   });
   return result;
-};
+}

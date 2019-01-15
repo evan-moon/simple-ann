@@ -31,20 +31,20 @@ const limit = 1000; // 학습 횟수
 
 // 두번째 Layer의 Weight들을 업데이트
 function updateSecondLayerWeight (targetY, y, prevY, updatedWeight) {
-	const v1 = (-(targetY - y)) + 0;
-	const v2 = y * (1-y);
+	const v1 = -(targetY - y);
+	const v2 = y * (1 - y);
 	const def = v1 * v2 * prevY;
 	return updatedWeight - (learningRate * def);
 }
 
 // 첫번째 Layer의 Weight들을 업데이트
 function updateFirstLayerWeight (t1, t2, y1, y2, w1, w2, a, updatedWeight) {
-    const e1 = (-(t1 - y1)) * y1 * (1-y1) * w1;
-    const e2 = (-(t2 - y2)) * y2 * (1-y2) * w2;
-    const v1 = a * (1-a);
+    const e1 = (-(t1 - y1)) * (y1 * (1 - y1)) * w1;
+    const e2 = (-(t2 - y2)) * (y2 * (1 - y2)) * w2;
+    const v1 = a * (1 - a);
     const v2 = a;
     const def = (e1 + e2) * v1 * v2;
-    
+
     return updatedWeight - (learningRate * def);
 }
 
