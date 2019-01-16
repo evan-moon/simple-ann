@@ -3,15 +3,13 @@ import { MeanSquaredError } from 'lib/math';
 
 export class Layer {
   public id: string;
-  public isOutputLayer: boolean;
-  private neurons: Neuron[];
-  private prevLayer: Layer;
-  private nextLayer: Layer;
+  public prevLayer: Layer;
+  public nextLayer: Layer;
   public length: number;
+  private neurons: Neuron[];
 
-  constructor (id: string, isOutputLayer = false) {
+  constructor (id: string) {
     this.id = id;
-    this.isOutputLayer = isOutputLayer;
     this.neurons = [];
     this.length = 0;
   }
@@ -34,7 +32,7 @@ export class Layer {
   }
 
   public calc () {
-    this.neurons.forEach((neuron, i) => {
+    this.neurons.forEach(neuron => {
       neuron.calc();
     });
 
@@ -48,13 +46,23 @@ export class Layer {
     return this.neurons.map(neurons => neurons.getCalcedResult());
   }
 
-  public getLoss () {}
+  public getForwardLoss (targets: number[]) {
+    const results = this.getResults();
+    return {
+      forward: MeanSquaredError(targets, results),
+      prime: MeanSquaredError(targets, results, true),
+    };
+  }
 
-  public updateWeights () {
-    if (this.isOutputLayer) {
-      console.log(0);
-    } else {
-      console.log(1);
-    }
+  public getBackwardLoss () {
+    return this.neurons.reduce((a: number, b: Neuron) => {
+      return a + b.getLoss();
+    }, 0);
+  }
+
+  public updateWeights (lossPrime: number, learningRate) {
+    // 마지막 Layer는 스칼라인 E에 대한 LossPrime이 들어옴
+    // not 마지막 Layer는 전 레이어의 E에 대한 LossPrime의 합이 들어옴
+    this.neurons.forEach(neuron => neuron.updateWeights(lossPrime, learningRate));
   }
 }

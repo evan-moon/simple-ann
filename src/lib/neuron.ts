@@ -19,9 +19,8 @@ export class Neuron {
   private variableLength: number;
   private notActivatedResult: number;
   private activatedResult: number;
-  private deffActivatedResult: number;
-  private deffWeights: number[];
-  private deffErrors: number[];
+  private activatedResultPrime: number;
+  private loss: number;
 
   constructor (id: string = 'anonymous-neuron', weights: number[]) {
     this.id = id;
@@ -29,9 +28,8 @@ export class Neuron {
     this.variableLength = weights.length;
     this.notActivatedResult = 0;
     this.activatedResult = 0;
-    this.deffActivatedResult = 0;
-    this.deffWeights = [];
-    this.deffErrors = [];
+    this.activatedResultPrime = 0;
+    this.loss = 0;
   }
 
   public setInputs (inputs: number[]) {
@@ -44,12 +42,21 @@ export class Neuron {
   public calc () {
     this.notActivatedResult = multiplation(this.inputs, this.weights);
     this.activatedResult = sigmoid(this.notActivatedResult);
-    // 미분 값을 set한다
-    this.deffActivatedResult = sigmoid(this.activatedResult, true);
-    this.deffWeights = [...this.inputs];
+    this.activatedResultPrime = sigmoid(this.notActivatedResult, true);
   }
 
   public getCalcedResult () {
     return this.activatedResult;
+  }
+
+  public getLoss () {
+    return this.loss;
+  }
+
+  updateWeights (lossPrime, learningRate) {
+    this.weights = this.weights.map((weight, index) => {
+      this.loss = lossPrime * this.activatedResultPrime * this.inputs[index];
+      return weight - (learningRate * this.loss);
+    });
   }
 }

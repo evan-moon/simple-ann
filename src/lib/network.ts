@@ -1,65 +1,88 @@
-import { networkOption } from 'config';
 import { Neuron } from 'lib/neuron';
 import { Layer } from 'lib/layer';
-import { MeanSquaredError } from 'lib/math';
 
-// generate randomic inputs
-const inputs: number[] = [];
-const targets: number[] = networkOption.targets;
-for (let i = 0; i < targets.length; i++) {
-  inputs.push(Math.random() + targets[i]);
+export class Network {
+  private layers: Layer[];
+  private firstLayer: Layer;
+  private lastLayer: Layer;
+  private targets: number[];
+  private inputs: number[];
+  private totalLoss: number;
+  private totalLossPrime: number;
+  private output: number[];
+  private learningRate: number;
+
+  constructor (targets: number[], inputs: number[]) {
+    if (targets.length !== inputs.length) {
+      throw new Error('targets must have same length with inputs');
+    }
+    this.targets = targets;
+    this.inputs = inputs;
+
+    this.layers = [];
+    this.totalLoss = -1;
+    this.totalLossPrime = -1;
+    this.output = [];
+  }
+
+  setLearningRate (learningRate: number) {
+    this.learningRate = learningRate;
+  }
+
+  createNodes (layerCount: number, nodePerLayer: number) {
+    for (let i = 0; i < layerCount; i++) {
+      const layer: Layer = new Layer(`layer-${i}`);
+      for (let j = 0; j < nodePerLayer; j++) {
+        const neuron = new Neuron(`neuron-[${i}][${j}]`, [Math.random(), Math.random()]);
+        layer.pushNeuron(neuron);
+      }
+
+      if (i === 0) {
+        this.firstLayer = layer;
+        this.firstLayer.setInputs(this.inputs);
+      } else if (i === layerCount - 1) {
+        this.lastLayer = layer;
+      }
+
+      this.layers.push(layer);
+    }
+
+    this.layers.forEach((layer, layerIndex) => {
+      const prevLayer = this.layers[layerIndex - 1];
+      const nextLayer = this.layers[layerIndex + 1];
+      if (prevLayer) {
+        layer.setPrevLayer(prevLayer);
+      }
+      if (nextLayer) {
+        layer.setNextLayer(nextLayer);
+      }
+    });
+  }
+
+  forwardPropagation () {
+    this.layers.forEach(layer => {
+      layer.calc();
+    });
+    const loss = this.lastLayer.getForwardLoss(this.targets);
+    this.output = this.lastLayer.getResults();
+    this.totalLoss = loss.forward;
+    this.totalLossPrime = loss.prime;
+  }
+
+  backPropagation () {
+    const reversed = [...this.layers].reverse();
+    reversed.forEach((layer, index) => {
+      if (layer.id === this.lastLayer.id) {
+        layer.updateWeights(this.totalLossPrime, this.learningRate);
+      } else {
+        const loss = layer.nextLayer.getBackwardLoss();
+        console.log('error -> ', this.totalLoss);
+        layer.updateWeights(loss, this.learningRate);
+      }
+    });
+  }
+
+  getResults () {
+    return this.lastLayer.getResults();
+  }
 }
-
-// create Layers
-const layers = [];
-for (let i = 0; i < networkOption.layerCount; i++) {
-  const isLastIndex = i === networkOption.layerCount - 1;
-  const layer: Layer = new Layer(`layer-${i}`, isLastIndex);
-  for (let j = 0; j < networkOption.nodePerLayer; j++) {
-    const neuron = new Neuron(`neuron-[${i}][${j}]`, [Math.random(), Math.random()]);
-    layer.pushNeuron(neuron);
-  }
-  if (i === 0) {
-    layer.setInputs(inputs);
-  }
-  layers.push(layer);
-}
-
-layers.forEach((layer, layerIndex) => {
-  const prevLayer = layers[layerIndex - 1];
-  const nextLayer = layers[layerIndex + 1];
-
-  if (prevLayer) {
-    layer.setPrevLayer(prevLayer);
-  }
-  if (nextLayer) {
-    layer.setNextLayer(nextLayer);
-  }
-});
-
-// Start Forward Propagation
-console.log(' -> Start Front Propagation');
-layers.forEach(layer => {
-  layer.calc();
-});
-
-// Get loss
-const lastLayer = layers[layers.length - 1];
-const results = lastLayer.getResults();
-console.log('Front Propagation result ->', results);
-const loss = lastLayer.getLoss();
-// @TODO 로스 미분 값 구하기 2/n sigma_{i=0}^{n}(output -target)
-// https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html#mse-l2
-console.log('Front Propagation loss -> ', loss);
-
-// start back propagation
-console.log(' -> Back propagation Start');
-// reverse loop start
-[...layers].reverse().forEach(layer => {
-  console.log(layer);
-  layer.updateWeights();
-});
-
-// const testNeuron = new Neuron('test', [Math.random(), Math.random()]);
-// testNeuron.setInputs(inputs);
-// testNeuron.calc();
