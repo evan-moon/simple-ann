@@ -20,7 +20,7 @@ export class Neuron {
   private notActivatedResult: number;
   private activatedResult: number;
   private activatedResultPrime: number;
-  private loss: number;
+  private weightPrimes: number[];
 
   constructor (id: string = 'anonymous-neuron', weights: number[]) {
     this.id = id;
@@ -29,7 +29,7 @@ export class Neuron {
     this.notActivatedResult = 0;
     this.activatedResult = 0;
     this.activatedResultPrime = 0;
-    this.loss = 0;
+    this.weightPrimes = [];
   }
 
   public setInputs (inputs: number[]) {
@@ -49,14 +49,16 @@ export class Neuron {
     return this.activatedResult;
   }
 
-  public getLoss () {
-    return this.loss;
+  public getWeightPrimes () {
+    return this.weightPrimes;
   }
 
   updateWeights (lossPrime, learningRate) {
     this.weights = this.weights.map((weight, index) => {
-      this.loss = lossPrime * this.activatedResultPrime * this.inputs[index];
-      return weight - (learningRate * this.loss);
+      const p = lossPrime * this.activatedResultPrime;
+      const loss = p * this.inputs[index];
+      this.weightPrimes[index] = p * weight;
+      return weight - (learningRate * loss);
     });
   }
 }

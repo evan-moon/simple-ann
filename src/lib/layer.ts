@@ -54,9 +54,9 @@ export class Layer {
     };
   }
 
-  public getBackwardLoss () {
-    return this.neurons.reduce((a: number, b: Neuron) => {
-      return a + b.getLoss();
+  public getLoss () {
+    return this.neurons.reduce((a: number, b: Neuron, currentIndex: number) => {
+      return a + b.getWeightPrimes()[currentIndex];
     }, 0);
   }
 

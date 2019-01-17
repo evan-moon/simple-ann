@@ -33,7 +33,11 @@ export class Network {
     for (let i = 0; i < layerCount; i++) {
       const layer: Layer = new Layer(`layer-${i}`);
       for (let j = 0; j < nodePerLayer; j++) {
-        const neuron = new Neuron(`neuron-[${i}][${j}]`, [Math.random(), Math.random()]);
+        const newWeights = [];
+        for (let k = 0; k < this.inputs.length; k++) {
+          newWeights.push(Math.random());
+        }
+        const neuron = new Neuron(`neuron-[${i}][${j}]`, newWeights);
         layer.pushNeuron(neuron);
       }
 
@@ -71,18 +75,23 @@ export class Network {
 
   backPropagation () {
     const reversed = [...this.layers].reverse();
-    reversed.forEach((layer, index) => {
+    const learningRate = this.learningRate;
+    reversed.forEach(layer => {
       if (layer.id === this.lastLayer.id) {
-        layer.updateWeights(this.totalLossPrime, this.learningRate);
+        layer.updateWeights(this.totalLossPrime, learningRate);
       } else {
-        const loss = layer.nextLayer.getBackwardLoss();
-        console.log('error -> ', this.totalLoss);
-        layer.updateWeights(loss, this.learningRate);
+        // 순서가 거꾸로 되어있으니까 nextLayer가 계산이 먼저 끝나있다.
+        const loss = layer.nextLayer.getLoss();
+        layer.updateWeights(loss, learningRate);
       }
     });
   }
 
   getResults () {
     return this.lastLayer.getResults();
+  }
+
+  getError () {
+    return this.totalLoss;
   }
 }

@@ -19,7 +19,7 @@ export function MeanSquaredError (targets: number[], values: number[], deff = fa
     result *= (2 / targets.length);
   } else {
     targets.forEach((t: number, i: number) => {
-      result += (t - values[i]) ** 2;
+      result += ((t - values[i]) ** 2);
     });
     result *= (1 / targets.length);
   }
@@ -40,7 +40,7 @@ export function multiplation (m: number[], n: number[]) {
   }
   let result: number = 0;
   m.forEach((v, i) => {
-    result += (v + n[i]);
+    result += (v * n[i]);
   });
   return result;
 }
