@@ -64,7 +64,8 @@ export class Network {
   }
 
   forwardPropagation () {
-    this.layers.forEach(layer => {
+    this.layers.forEach((layer, index) => {
+      console.log(index);
       layer.calc();
     });
     const loss = this.lastLayer.getForwardLoss(this.targets);

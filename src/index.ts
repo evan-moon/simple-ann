@@ -21,11 +21,11 @@ function init () {
   for (let i = 0; i < networkOption.learningLimit; i++) {
     network.forwardPropagation();
     network.backPropagation();
-    console.log(`${i} result :: ${network.getResults()}`);
-    console.log(`${i} error :: ${network.getError()}`);
+    // console.log(`${i} result :: ${network.getResults()}`);
+    // console.log(`${i} error :: ${network.getError()}`);
   }
 
-  console.log('final result -> ', network.getResults(), 'target -> ', targets);
+  // console.log('final result -> ', network.getResults(), 'target -> ', targets);
 }
 
 init();

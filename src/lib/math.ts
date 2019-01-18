@@ -31,8 +31,8 @@ export function MeanSquaredError (targets: number[], values: number[], deff = fa
  * @function multiplation
  * @param { number[] } m
  * @param { number[] } n
- * @desc m은 transpose하여 열벡터로 취급하고 n은 행벡터로 취급하여 행렬곱 진행
- * [x1, x2] x [w1, w2] = x1w1 + x2w2
+ * @desc m은 행벡터로 취급하고 n은 transpost하여 열벡터로 취급하여 행렬곱 진행
+ * [[x1, x2]] x [[w1], [w2]] = x1w1 + x2w2
  */
 export function multiplation (m: number[], n: number[]) {
   if (m.length !== n.length) {

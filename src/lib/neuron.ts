@@ -13,7 +13,7 @@ import { sigmoid, multiplation } from 'lib/math';
  * @member deffErrors 각 에러 / activateResult에 대한 미분 값. FrontPropagation 계산 당시에는 모른다
  */
 export class Neuron {
-  public id: string;
+  private id: string;
   private inputs: number[];
   private weights: number[];
   private variableLength: number;
@@ -40,6 +40,7 @@ export class Neuron {
   }
 
   public calc () {
+    console.log(`${this.id} : ` + this.weights);
     this.notActivatedResult = multiplation(this.inputs, this.weights);
     this.activatedResult = sigmoid(this.notActivatedResult);
     this.activatedResultPrime = sigmoid(this.notActivatedResult, true);

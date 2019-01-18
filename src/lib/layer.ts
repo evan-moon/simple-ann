@@ -20,6 +20,7 @@ export class Layer {
   }
 
   public setInputs (inputs: number[]) {
+    console.log('inputs -> ', inputs);
     this.neurons.forEach(neuron => neuron.setInputs(inputs));
   }
 
@@ -38,6 +39,7 @@ export class Layer {
 
     const results = this.getResults();
     if (this.nextLayer) {
+      console.log('results -> ', results);
       this.nextLayer.setInputs(results);
     }
   }
