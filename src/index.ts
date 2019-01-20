@@ -4,7 +4,7 @@ import { Network } from 'lib/network';
 // import * as d3 from 'd3';
 
 function init () {
-  console.log('App initialize Start');
+  console.log('Network leaning Start');
   // generate randomic inputs
   const inputs: number[] = [];
   const targets: number[] = networkOption.targets;
@@ -20,13 +20,13 @@ function init () {
   for (let i = 0; i < networkOption.learningLimit; i++) {
     network.forwardPropagation();
     network.backPropagation();
-    console.log(`[${i}] Error: ${network.getError()}`);
+    // console.log(`[${i}] Error: ${network.getError()}`);
   }
 
-  console.log('============================== RESULT ==================================');
-  console.log('Inputs: ', inputs);
-  console.log('Results: ', network.getResults());
+  console.log('============================== Result ==================================');
   console.log('Loss: ', network.getError());
+  console.log('Inputs: ', inputs);
+  console.log('Outputs: ', network.getResults());
   console.log('Targets: ', targets);
   console.log('========================================================================');
 }
