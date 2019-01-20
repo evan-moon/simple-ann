@@ -8,7 +8,7 @@ export class Network {
   private targets: number[];
   private inputs: number[];
   private totalLoss: number;
-  private totalLossPrime: number;
+  private totalLossPrimes: number[];
   private output: number[];
   private learningRate: number;
 
@@ -21,7 +21,7 @@ export class Network {
 
     this.layers = [];
     this.totalLoss = -1;
-    this.totalLossPrime = -1;
+    this.totalLossPrimes = [];
     this.output = [];
   }
 
@@ -44,7 +44,8 @@ export class Network {
       if (i === 0) {
         this.firstLayer = layer;
         this.firstLayer.setInputs(this.inputs);
-      } else if (i === layerCount - 1) {
+      }
+      if (i === layerCount - 1) {
         this.lastLayer = layer;
       }
 
@@ -64,14 +65,13 @@ export class Network {
   }
 
   forwardPropagation () {
-    this.layers.forEach((layer, index) => {
-      console.log(index);
+    this.layers.forEach((layer: Layer) => {
       layer.calc();
     });
     const loss = this.lastLayer.getForwardLoss(this.targets);
     this.output = this.lastLayer.getResults();
     this.totalLoss = loss.forward;
-    this.totalLossPrime = loss.prime;
+    this.totalLossPrimes = loss.primes;
   }
 
   backPropagation () {
@@ -79,11 +79,11 @@ export class Network {
     const learningRate = this.learningRate;
     reversed.forEach(layer => {
       if (layer.id === this.lastLayer.id) {
-        layer.updateWeights(this.totalLossPrime, learningRate);
+        layer.updateWeights(this.totalLossPrimes, learningRate);
       } else {
         // 순서가 거꾸로 되어있으니까 nextLayer가 계산이 먼저 끝나있다.
-        const loss = layer.nextLayer.getLoss();
-        layer.updateWeights(loss, learningRate);
+        const losses = layer.nextLayer.getLosses();
+        layer.updateWeights(losses, learningRate);
       }
     });
   }

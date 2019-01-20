@@ -9,8 +9,7 @@ function init () {
   const inputs: number[] = [];
   const targets: number[] = networkOption.targets;
   for (let i = 0; i < targets.length; i++) {
-    // inputs.push(Math.random() + targets[i]);
-    inputs.push(1);
+    inputs.push(Math.random() + targets[i]);
   }
 
   // generate network
@@ -21,11 +20,15 @@ function init () {
   for (let i = 0; i < networkOption.learningLimit; i++) {
     network.forwardPropagation();
     network.backPropagation();
-    // console.log(`${i} result :: ${network.getResults()}`);
-    // console.log(`${i} error :: ${network.getError()}`);
+    console.log(`[${i}] Error: ${network.getError()}`);
   }
 
-  // console.log('final result -> ', network.getResults(), 'target -> ', targets);
+  console.log('============================== RESULT ==================================');
+  console.log('Inputs: ', inputs);
+  console.log('Results: ', network.getResults());
+  console.log('Loss: ', network.getError());
+  console.log('Targets: ', targets);
+  console.log('========================================================================');
 }
 
 init();

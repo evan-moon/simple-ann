@@ -40,7 +40,6 @@ export class Neuron {
   }
 
   public calc () {
-    console.log(`${this.id} : ` + this.weights);
     this.notActivatedResult = multiplation(this.inputs, this.weights);
     this.activatedResult = sigmoid(this.notActivatedResult);
     this.activatedResultPrime = sigmoid(this.notActivatedResult, true);
@@ -54,7 +53,7 @@ export class Neuron {
     return this.weightPrimes;
   }
 
-  updateWeights (lossPrime, learningRate) {
+  updateWeights (lossPrime: number, learningRate: number) {
     this.weights = this.weights.map((weight, index) => {
       const p = lossPrime * this.activatedResultPrime;
       const loss = p * this.inputs[index];

@@ -6,25 +6,22 @@ export function sigmoid (x: number, deff = false): number {
   }
 }
 
-export function MeanSquaredError (targets: number[], values: number[], deff = false): number {
+export function MeanSquaredError (targets: number[], values: number[]): number {
   if (targets.length !== values.length) {
     throw new Error('target and value must have same length!');
   }
 
   let result: number = 0;
-  if (deff) {
-    targets.forEach((t: number, i: number) => {
-      result += (t - values[i]);
-    });
-    result *= (2 / targets.length);
-  } else {
-    targets.forEach((t: number, i: number) => {
-      result += ((t - values[i]) ** 2);
-    });
-    result *= (1 / targets.length);
-  }
+  targets.forEach((t: number, i: number) => {
+    result += ((t - values[i]) ** 2);
+  });
+  result *= (1 / targets.length);
 
   return result;
+}
+
+export function MeanSquaredErrorPrimes (targets: number[], values: number[]): number[] {
+  return targets.map((t: number, i: number) => -(t - values[i]));
 }
 
 /**
