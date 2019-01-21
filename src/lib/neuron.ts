@@ -13,7 +13,7 @@ import { sigmoid, multiplation } from 'lib/math';
  * @member deffErrors 각 에러 / activateResult에 대한 미분 값. FrontPropagation 계산 당시에는 모른다
  */
 export class Neuron {
-  private id: string;
+  public id: string;
   private inputs: number[];
   private weights: number[];
   private variableLength: number;

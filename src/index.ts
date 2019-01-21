@@ -2,6 +2,7 @@ import 'src/styles';
 import { networkOptions } from 'config';
 import { Network } from 'lib/network';
 import { Chart } from 'graphics/chart';
+import { Graph } from 'graphics/graph';
 
 function init () {
   console.log('Network leaning Start');
@@ -17,23 +18,28 @@ function init () {
   network.createNodes(networkOptions.layerCount, networkOptions.nodePerLayer);
   network.setLearningRate(networkOptions.learningRate);
 
-  // chart dataset
-  const errors: number[] = [];
-  const results: number[][] = targets.map(() => {
+  // make chart dataset
+  const networkDataset = network.getNetworkGraphicData();
+  const errorDataset: number[] = [];
+  const outputDataset: number[][] = targets.map(() => {
     return [];
   });
+
+  // render network
+  console.log(networkDataset);
+  const graph = new Graph('#network-display', networkDataset.nodes, networkDataset.links);
+  graph.render();
 
   for (let i = 0; i < networkOptions.learningLimit; i++) {
     network.forwardPropagation();
     network.backPropagation();
 
-    errors.push(network.getError());
+    errorDataset.push(network.getError());
     network.getResults().forEach((output: number, index: number) => {
-      results[index].push(output);
+      outputDataset[index].push(output);
     });
-    console.log(`[${i}] Error: ${network.getError()}`);
+    // console.log(`[${i}] Error: ${network.getError()}`);
   }
-  console.log(results);
 
   console.log('============================== Result ==================================');
   console.log('Loss: ', network.getError());
@@ -47,12 +53,12 @@ function init () {
     // Render Error Chart
     const errorChart = new Chart('#loss-rate-chart');
     errorChart.render();
-    errorChart.drawLine([{ label: 'Loss', data: errors }]);
+    errorChart.drawLine([{ label: 'Loss', data: errorDataset }]);
 
     // Render Output Chart
     const outputChart = new Chart('#output-chart');
     outputChart.render();
-    outputChart.drawLine(results.map((r: number[], index: number) => {
+    outputChart.drawLine(outputDataset.map((r: number[], index: number) => {
       return {
         label: `output${index}`,
         data: r,

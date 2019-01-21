@@ -18,7 +18,7 @@ export class Chart {
         columns: [],
       },
       size: {
-        height: 300,
+        height: chartOptions.height,
       },
       axis: {
         x: {
@@ -38,9 +38,7 @@ export class Chart {
   }
 
   public drawLine (datasets: Dataset[]) {
-    console.log(datasets);
     datasets.forEach(d => this.datasets.push(d.label));
-
     const columns = datasets.map(d => {
       return [d.label, ...d.data];
     });

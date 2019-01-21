@@ -42,6 +42,10 @@ export class Layer {
     }
   }
 
+  public getNeurons (): Neuron[] {
+    return this.neurons;
+  }
+
   public getResults () {
     return this.neurons.map(neurons => neurons.getCalcedResult());
   }

@@ -9,6 +9,6 @@ export const networkOptions: NetworkOptions = {
 };
 
 export const chartOptions: ChartOptions = {
-  width: 400,
-  height: 400,
+  width: 300,
+  height: 300,
 };

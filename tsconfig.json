@@ -11,8 +11,9 @@
       "node_modules/*": ["node_modules/*"]
     },
     "module": "esnext",
-    "target": "es5",
-    "sourceMap": true
+    "target": "es6",
+    "sourceMap": true,
+    "allowJs": true,
   },
   "include": [
     "src/**/*.ts"

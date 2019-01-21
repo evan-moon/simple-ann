@@ -12,6 +12,9 @@ export class Network {
   private output: number[];
   private learningRate: number;
 
+  private nodes: any[] = [];
+  private links: any[] = [];
+
   constructor (targets: number[], inputs: number[]) {
     if (targets.length !== inputs.length) {
       throw new Error('targets must have same length with inputs');
@@ -37,7 +40,9 @@ export class Network {
         for (let k = 0; k < this.inputs.length; k++) {
           newWeights.push(Math.random());
         }
-        const neuron = new Neuron(`neuron-[${i}][${j}]`, newWeights);
+
+        const neuronId = `neuron-[${i}][${j}]`;
+        const neuron = new Neuron(neuronId, newWeights);
         layer.pushNeuron(neuron);
       }
 
@@ -62,6 +67,26 @@ export class Network {
         layer.setNextLayer(nextLayer);
       }
     });
+
+    // Create Nodes and Links
+    // @TODO 시간복잡도 n^3이므로 개선해야함
+    this.layers.forEach((l: Layer, li: number) => {
+      l.getNeurons().forEach((n: Neuron, ni: number) => {
+        this.nodes.push({ id: n.id, name: `[${li}][${ni}]`, x: li, y: ni });
+        if (l.nextLayer) {
+          l.nextLayer.getNeurons().forEach((nn: Neuron) => {
+            this.links.push({ source: n.id, target: nn.id, value: 1 });
+          });
+        }
+      });
+    });
+  }
+
+  getNetworkGraphicData () {
+    return {
+      nodes: this.nodes,
+      links: this.links,
+    };
   }
 
   forwardPropagation () {
