@@ -19,14 +19,21 @@ function init () {
 
   // chart dataset
   const errors: number[] = [];
+  const results: number[][] = targets.map(() => {
+    return [];
+  });
 
   for (let i = 0; i < networkOptions.learningLimit; i++) {
     network.forwardPropagation();
     network.backPropagation();
 
     errors.push(network.getError());
+    network.getResults().forEach((output: number, index: number) => {
+      results[index].push(output);
+    });
     console.log(`[${i}] Error: ${network.getError()}`);
   }
+  console.log(results);
 
   console.log('============================== Result ==================================');
   console.log('Loss: ', network.getError());
@@ -37,10 +44,22 @@ function init () {
 
   // Render chart
   function draw () {
+    // Render Error Chart
     const errorChart = new Chart('#loss-rate-chart');
     errorChart.render();
-    errorChart.drawLine({ label: 'Loss', data: errors }, '#fa5963');
+    errorChart.drawLine([{ label: 'Loss', data: errors }]);
+
+    // Render Output Chart
+    const outputChart = new Chart('#output-chart');
+    outputChart.render();
+    outputChart.drawLine(results.map((r: number[], index: number) => {
+      return {
+        label: `output${index}`,
+        data: r,
+      };
+    }));
   }
+
   draw();
 }
 

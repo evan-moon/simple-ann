@@ -13,7 +13,7 @@ export class Chart {
 
   public render () {
     this.chart = c3.generate({
-      bindto: this.selector,
+      bindto: `${this.selector} > div[data-name="chart"]`,
       data: {
         columns: [],
       },
@@ -37,15 +37,15 @@ export class Chart {
     });
   }
 
-  public drawLine (dataset: Dataset, color: string) {
-    this.datasets.push(dataset.label);
+  public drawLine (datasets: Dataset[]) {
+    console.log(datasets);
+    datasets.forEach(d => this.datasets.push(d.label));
 
-    const data: any[] = [dataset.label, ...dataset.data];
+    const columns = datasets.map(d => {
+      return [d.label, ...d.data];
+    });
     this.chart.load({
-      columns: [data],
-      colors: {
-        [dataset.label]: color,
-      },
+      columns,
     });
   }
 }
