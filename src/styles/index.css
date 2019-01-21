@@ -1,7 +1,32 @@
-.chart-wrapper {
-  display: inline-block;
-  border: 1px solid #fdfdfd;
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
 }
-.line-chart {
-  border: 1px solid lightgray;
+*[class*="col"] {
+  position: relative;
+  flex-basis: 0;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  max-width: 100%;
+  min-height: 1px;
+  width: 100%;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+.col-6 {
+  -webkit-box-flex: 0;
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+.border-box {
+  border: 1px solid #aaa;
+}
+.chart-wrapper {
+  padding: 15px;
+  margin-bottom: 15px;
+}
+.chart-wrapper:last-child {
+  margin-bottom: 0;
 }
