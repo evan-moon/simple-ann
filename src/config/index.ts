@@ -7,9 +7,9 @@ type NetworkOption = {
 };
 
 export const networkOption: NetworkOption = {
-  layerCount: 2,
-  nodePerLayer: 3,
-  targets: [0.01, 0.8, 0.5],
+  layerCount: 5,
+  nodePerLayer: 2,
+  targets: [0.01, 0.8],
   learningRate: 0.3,
-  learningLimit: 10000,
+  learningLimit: 1000,
 };

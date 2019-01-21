@@ -1,1 +1,7 @@
-
+.chart-wrapper {
+  display: inline-block;
+  border: 1px solid #fdfdfd;
+}
+.line-chart {
+  border: 1px solid lightgray;
+}
