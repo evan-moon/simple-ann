@@ -13,7 +13,7 @@ export class Chart {
 
   public render () {
     this.chart = c3.generate({
-      bindto: `${this.selector} > div[data-name="chart"]`,
+      bindto: `#${this.selector} > div[data-name="chart"]`,
       data: {
         columns: [],
       },

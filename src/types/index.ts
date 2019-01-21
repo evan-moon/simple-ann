@@ -6,7 +6,6 @@ export type NetworkOptions = {
   learningLimit: number;
 };
 export type ChartOptions = {
-  width: number;
   height: number;
 };
 export type Dataset = {

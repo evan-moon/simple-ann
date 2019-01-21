@@ -14,11 +14,11 @@ export class Graph {
   }
 
   public render () {
-    let { width, height } = chartOptions;
-    width += 200;
+    let { height } = chartOptions;
+    const width = document.getElementById(this.selector).offsetWidth;
     height += 200;
 
-    const svg = d3.select(`${this.selector}>div[data-name="chart"]`)
+    const svg = d3.select(`#${this.selector}>div[data-name="chart"]`)
       .append('svg:svg')
       .attr('width', width)
       .attr('height', height);

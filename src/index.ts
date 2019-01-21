@@ -27,7 +27,7 @@ function init () {
 
   // render network
   console.log(networkDataset);
-  const graph = new Graph('#network-display', networkDataset.nodes, networkDataset.links);
+  const graph = new Graph('network-display', networkDataset.nodes, networkDataset.links);
   graph.render();
 
   for (let i = 0; i < networkOptions.learningLimit; i++) {
@@ -51,12 +51,12 @@ function init () {
   // Render chart
   function draw () {
     // Render Error Chart
-    const errorChart = new Chart('#loss-rate-chart');
+    const errorChart = new Chart('loss-rate-chart');
     errorChart.render();
     errorChart.drawLine([{ label: 'Loss', data: errorDataset }]);
 
     // Render Output Chart
-    const outputChart = new Chart('#output-chart');
+    const outputChart = new Chart('output-chart');
     outputChart.render();
     outputChart.drawLine(outputDataset.map((r: number[], index: number) => {
       return {
