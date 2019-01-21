@@ -6,6 +6,8 @@
       "src/*": ["src/*"],
       "lib/*": ["src/lib/*"],
       "config/*": ["src/config/*"],
+      "graphics/*": ["src/graphics/*"],
+      "types/*": ["src/types/*"]
     },
     "module": "esnext",
     "target": "es5",

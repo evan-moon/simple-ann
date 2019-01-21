@@ -13,6 +13,8 @@ module.exports = {
       'src': path.resolve(__dirname, '../src'),
       'lib': path.resolve(__dirname, '../src/lib'),
       'config': path.resolve(__dirname, '../src/config'),
+      'graphics': path.resolve(__dirname, '../src/graphics'),
+      'types': path.resolve(__dirname, '../src/types'),
     },
   },
   module: {

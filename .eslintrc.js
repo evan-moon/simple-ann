@@ -12,5 +12,6 @@ module.exports = {
       'functions': 'never',
     }],
     'no-unused-vars': 0,
+    'no-useless-constructor': 0,
   }
 };
