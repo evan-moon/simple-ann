@@ -2,8 +2,8 @@ import { NetworkOptions, ChartOptions } from 'types';
 
 export const networkOptions: NetworkOptions = {
   layerCount: 5,
-  nodePerLayer: 2,
-  targets: [0.5, 0.3],
+  nodePerLayer: 3,
+  targets: [0.5, 0.3, 0.9],
   learningRate: 0.1,
   learningLimit: 1000,
 };
