@@ -7,7 +7,8 @@
       "lib/*": ["src/lib/*"],
       "config/*": ["src/config/*"],
       "graphics/*": ["src/graphics/*"],
-      "types/*": ["src/types/*"]
+      "types/*": ["src/types/*"],
+      "node_modules/*": ["node_modules/*"]
     },
     "module": "esnext",
     "target": "es5",

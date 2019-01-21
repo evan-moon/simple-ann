@@ -15,6 +15,7 @@ module.exports = {
       'config': path.resolve(__dirname, '../src/config'),
       'graphics': path.resolve(__dirname, '../src/graphics'),
       'types': path.resolve(__dirname, '../src/types'),
+      'node_modules': path.resolve(__dirname, '../node_modules'),
     },
   },
   module: {

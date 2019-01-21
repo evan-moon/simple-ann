@@ -1,8 +1,7 @@
 import 'src/styles';
 import { networkOptions } from 'config';
 import { Network } from 'lib/network';
-import * as d3 from 'd3';
-import { LineChart } from 'graphics/lineChart';
+import { Chart } from 'graphics/chart';
 
 function init () {
   console.log('Network leaning Start');
@@ -19,13 +18,13 @@ function init () {
   network.setLearningRate(networkOptions.learningRate);
 
   // chart dataset
-  const errors = [];
+  const errors: number[] = [];
 
   for (let i = 0; i < networkOptions.learningLimit; i++) {
     network.forwardPropagation();
     network.backPropagation();
 
-    errors.push({ count: i, value: network.getError() });
+    errors.push(network.getError());
     console.log(`[${i}] Error: ${network.getError()}`);
   }
 
@@ -38,11 +37,9 @@ function init () {
 
   // Render chart
   function draw () {
-    const errorChart = new LineChart('#loss-rate-chart');
-    errorChart.render({
-      label: { x: 'Count', y: 'Loss' },
-      values: errors,
-    }, '#fa5963');
+    const errorChart = new Chart('#loss-rate-chart');
+    errorChart.render();
+    errorChart.drawLine({ label: 'Loss', data: errors }, '#fa5963');
   }
   draw();
 }

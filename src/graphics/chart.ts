@@ -1,30 +1,51 @@
-import * as d3 from 'd3';
+import * as c3 from 'c3';
 import { chartOptions } from 'config';
+import { Dataset } from 'types';
 
 export class Chart {
-  private selector: any;
+  private readonly selector: string;
+  private chart: any;
+  private datasets: string[] = [];
 
-  constructor (selector) {
-    this.selector = d3.select(selector);
+  constructor (selector: string) {
+    this.selector = selector;
   }
 
-  protected initRenderer () {
-    const svgSize = { w: chartOptions.width, h: chartOptions.height };
-    const margin = { top: 20, right: 20, bottom: 30, left: 50 };
-    const size = {
-      w: svgSize.w - margin.left - margin.right,
-      h: svgSize.h - margin.top - margin.bottom,
-    };
-    console.log(svgSize, size);
+  public render () {
+    this.chart = c3.generate({
+      bindto: this.selector,
+      data: {
+        columns: [],
+      },
+      size: {
+        height: 300,
+      },
+      axis: {
+        x: {
+          type: 'indexed',
+          tick: {
+            count: 10,
+          },
+        },
+        y: {
+          min: 0,
+        },
+      },
+      point: {
+        show: false,
+      },
+    });
+  }
 
-    const svg = this.selector.append('svg:svg')
-      .attr('width', svgSize.w)
-      .attr('height', svgSize.h);
-    const wrapperGroup = svg.append('g')
-      .attr('transform', `translate(${margin.left}, ${margin.right})`);
-    const x = d3.scaleLinear().rangeRound([0, size.w]);
-    const y = d3.scaleLinear().rangeRound([size.h, 0]);
+  public drawLine (dataset: Dataset, color: string) {
+    this.datasets.push(dataset.label);
 
-    return { svg, wrapperGroup, x, y, size };
+    const data: any[] = [dataset.label, ...dataset.data];
+    this.chart.load({
+      columns: [data],
+      colors: {
+        [dataset.label]: color,
+      },
+    });
   }
 }

@@ -23,10 +23,14 @@
 .border-box {
   border: 1px solid #aaa;
 }
+
 .chart-wrapper {
   padding: 15px;
   margin-bottom: 15px;
 }
 .chart-wrapper:last-child {
   margin-bottom: 0;
+}
+.chart-wrapper svg {
+  width: 100% !important;
 }

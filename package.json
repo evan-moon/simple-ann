@@ -20,6 +20,7 @@
   "homepage": "https://github.com/evan-moon/backpropagation-js#readme",
   "devDependencies": {
     "@babel/core": "^7.2.2",
+    "@types/c3": "^0.6.2",
     "@types/d3": "^5.5.0",
     "babel-loader": "^8.0.5",
     "clean-webpack-plugin": "^1.0.0",
@@ -42,6 +43,7 @@
     "webpack-merge": "^4.2.1"
   },
   "dependencies": {
+    "c3": "^0.6.12",
     "d3": "^5.7.0"
   }
 }
