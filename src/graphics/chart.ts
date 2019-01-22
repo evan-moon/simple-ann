@@ -1,5 +1,5 @@
 import * as c3 from 'c3';
-import { chartOptions } from 'config';
+import { chartOptions, networkOptions } from 'config';
 import { Dataset } from 'types';
 
 export class Chart {
@@ -24,7 +24,7 @@ export class Chart {
         x: {
           type: 'indexed',
           tick: {
-            count: 10,
+            count: networkOptions.learningLimit,
           },
         },
         y: {

@@ -4,8 +4,22 @@ import { Network } from 'lib/network';
 import { Chart } from 'graphics/chart';
 import { Graph } from 'graphics/graph';
 
+(function () {
+  const logger = document.getElementById('log');
+  const old = console.log;
+  console.log = function (message) {
+    old(message);
+    if (typeof message === 'object') {
+      logger.innerHTML += (JSON.stringify ? JSON.stringify(message) : message) + '<br />';
+    } else {
+      logger.innerHTML += message + '<br />';
+    }
+  };
+})();
+
 function init () {
-  console.log('Network leaning Start');
+  console.log('Network leaning Start...');
+
   // generate randomic inputs
   const inputs: number[] = [];
   const targets: number[] = networkOptions.targets;
@@ -26,7 +40,6 @@ function init () {
   });
 
   // render network
-  console.log(networkDataset);
   const graph = new Graph('network-display', networkDataset.nodes, networkDataset.links);
   graph.render();
 
@@ -38,14 +51,14 @@ function init () {
     network.getResults().forEach((output: number, index: number) => {
       outputDataset[index].push(output);
     });
-    // console.log(`[${i}] Error: ${network.getError()}`);
   }
 
+  // render console
   console.log('============================== Result ==================================');
-  console.log('Loss: ', network.getError());
-  console.log('Inputs: ', inputs);
-  console.log('Outputs: ', network.getResults());
-  console.log('Targets: ', targets);
+  console.log(`Loss: ${network.getError()}`);
+  console.log(`Inputs: [${inputs}]`);
+  console.log(`Outputs: [${network.getResults()}]`);
+  console.log(`Targets: [${targets}]`);
   console.log('========================================================================');
 
   // Render chart
@@ -65,8 +78,15 @@ function init () {
       };
     }));
   }
-
   draw();
+
+  function reset () {
+    graph.destroy();
+    init();
+  }
+  const resetButton = document.getElementById('reset-button');
+  resetButton.removeEventListener('click', reset);
+  resetButton.addEventListener('click', reset);
 }
 
 init();

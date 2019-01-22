@@ -80,6 +80,9 @@ export class Graph {
         .style('font-size', '14px')
         .style('fill', '#4393c3');
     });
-    // simulation.force('link', d3.forceLink(this.links).distance(20).strength(1).iterations(10));
+  }
+
+  public destroy () {
+    d3.select(`#${this.selector}>div[data-name="chart"]`).select('svg').remove();
   }
 };

@@ -23,6 +23,9 @@
 .border-box {
   border: 1px solid #aaa;
 }
+#network-display {
+  padding: 15px;
+}
 
 .chart-wrapper {
   padding: 15px;
@@ -33,4 +36,15 @@
 }
 .chart-wrapper svg {
   width: 100% !important;
+}
+
+#console {
+  margin-top: 15px;
+  padding: 15px;
+}
+#console > #log {
+  padding: 15px;
+  background-color: #000;
+  color: #fff;
+  font-family: Menlo, Consolas, monospace;
 }
