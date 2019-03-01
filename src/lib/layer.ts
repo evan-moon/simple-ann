@@ -64,13 +64,11 @@ export class Layer {
     });
   }
 
-  public updateWeights (lossPrimes: any, learningRate: number) {
+  public updateWeights (lossPrimes: any[], learningRate: number) {
     if (this.nextLayer) {
       // 마지막 레이어가 아니라면 전 레이어의 에러를 모두 더해야한다.
       this.neurons.forEach((neuron: Neuron, index:number) => {
-        const lossPrime = lossPrimes.reduce((a: number, b: number[]) => {
-          return a + b[index];
-        }, 0);
+        const lossPrime = lossPrimes.reduce((a: number, b: number[]) => a + b[index], 0);
         neuron.updateWeights(lossPrime, learningRate);
       });
     } else {
