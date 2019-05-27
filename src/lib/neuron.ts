@@ -6,11 +6,10 @@ import { sigmoid, multiplation } from 'lib/math';
  * @member inputs
  * @member weights
  * @member variableLength
- * @member notActivateResult input, weight의 계산 결과 값
- * @member activateResult notActivateResult가 Activation Function을 통과한 값
- * @member deffActivateResult Activation Function / 계산 결과 값에 대한 미분 값
- * @member deffWeights 계산 결과 / weights에 대한 미분 값 -> wx/w 이므로 해는 x가 된다.
- * @member deffErrors 각 에러 / activateResult에 대한 미분 값. FrontPropagation 계산 당시에는 모른다
+ * @member notActivatedResult input, weight의 계산 결과 값
+ * @member activatedResult notActivateResult가 Activation Function을 통과한 값
+ * @member activatedResultPrime Activation Function / 계산 결과 값에 대한 미분 값
+ * @member weightPrimes 각 에러 / activateResult에 대한 미분 값. FrontPropagation 계산 당시에는 모른다
  */
 export class Neuron {
   public id: string;
