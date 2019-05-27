@@ -10,8 +10,8 @@
       "types/*": ["src/types/*"],
       "node_modules/*": ["node_modules/*"]
     },
-    "module": "esnext",
-    "target": "es6",
+    "module": "commonjs",
+    "target": "es5",
     "sourceMap": true,
     "allowJs": true,
   },

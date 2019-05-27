@@ -2,10 +2,9 @@
   "name": "simple-ann",
   "version": "1.0.0",
   "description": "A Simple Artificial Neural Network",
-  "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --config ./build/webpack.dev.conf.js",
-    "build": "webpack ./build/webpack.prod.conf.js",
+    "build": "webpack --config ./build/webpack.prod.conf.js",
     "start": "node server.js"
   },
   "repository": {
