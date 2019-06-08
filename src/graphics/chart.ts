@@ -1,6 +1,6 @@
 import * as c3 from 'c3';
-import { chartOptions, networkOptions } from 'config';
-import { Dataset } from 'types';
+import { chartOptions, networkOptions } from '../config';
+import { Dataset } from '../types';
 
 export class Chart {
   private readonly selector: string;

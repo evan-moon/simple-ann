@@ -1,4 +1,4 @@
-import { sigmoid, multiplation } from 'lib/math';
+import { sigmoid, multiplation } from './math';
 
 /**
  * @class Neuron
@@ -12,16 +12,16 @@ import { sigmoid, multiplation } from 'lib/math';
  * @member weightPrimes 각 에러 / activateResult에 대한 미분 값. FrontPropagation 계산 당시에는 모른다
  */
 export class Neuron {
-  public id: string;
-  private inputs: number[];
-  private weights: number[];
+  public id: string = 'anonymous-neuron';
+  private inputs: number[] = [];
+  private weights: number[] = [];
   private variableLength: number;
   private notActivatedResult: number;
   private activatedResult: number;
   private activatedResultPrime: number;
   private weightPrimes: number[];
 
-  constructor (id: string = 'anonymous-neuron', weights: number[]) {
+  constructor (id: string, weights: number[]) {
     this.id = id;
     this.weights = [...weights];
     this.variableLength = weights.length;

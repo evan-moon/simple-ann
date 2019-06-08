@@ -1,5 +1,5 @@
-import { GraphNode, GraphLink } from 'types';
-import { chartOptions } from 'config';
+import { GraphNode, GraphLink } from '../types';
+import { chartOptions } from '../config';
 import * as d3 from 'd3';
 
 export class Graph {
@@ -15,7 +15,7 @@ export class Graph {
 
   public render () {
     let { height } = chartOptions;
-    const width = document.getElementById(this.selector).offsetWidth;
+    const width = document.getElementById(this.selector)!.offsetWidth;
     height += 200;
 
     const svg = d3.select(`#${this.selector}>div[data-name="chart"]`)

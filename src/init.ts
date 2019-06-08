@@ -1,13 +1,28 @@
-import 'src/styles';
-import { networkOptions } from 'config';
-import { Network } from 'lib/network';
-import { Chart } from 'graphics/chart';
-import { Graph } from 'graphics/graph';
+/**
+ * @name init
+ * @desc 마이그레이션 이전에 사용하던 초기화 함수
+ * @deprecated
+ */
+
+import NetworkView from './components/NetworkView';
+
+import { networkOptions } from './config';
+import { Network } from './lib/network';
+import { Chart } from './graphics/chart';
+import { Graph } from './graphics/graph';
 
 (function () {
+
+})();
+
+export function setLogger () {
   const logger = document.getElementById('log');
   const old = console.log;
-  console.log = function (message) {
+  if (!logger) {
+    return;
+  }
+
+  console.log = function (message: string) {
     old(message);
     if (typeof message === 'object') {
       logger.innerHTML += (JSON.stringify ? JSON.stringify(message) : message) + '<br />';
@@ -15,9 +30,9 @@ import { Graph } from 'graphics/graph';
       logger.innerHTML += message + '<br />';
     }
   };
-})();
+}
 
-function init () {
+export function init () {
   console.log('Network leaning Start...');
 
   // generate randomic inputs
@@ -85,8 +100,8 @@ function init () {
     init();
   }
   const resetButton = document.getElementById('reset-button');
-  resetButton.removeEventListener('click', reset);
-  resetButton.addEventListener('click', reset);
+  if (resetButton) {
+    resetButton.removeEventListener('click', reset);
+    resetButton.addEventListener('click', reset);
+  }
 }
-
-init();

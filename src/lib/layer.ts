@@ -1,17 +1,15 @@
-import { Neuron } from 'lib/neuron';
-import { MeanSquaredError, MeanSquaredErrorPrimes } from 'lib/math';
+import { Neuron } from './neuron';
+import { MeanSquaredError, MeanSquaredErrorPrimes } from './math';
 
 export class Layer {
-  public id: string;
-  public prevLayer: Layer;
-  public nextLayer: Layer;
-  public length: number;
-  private neurons: Neuron[];
+  public id: string = '';
+  public prevLayer: Layer|null = null;
+  public nextLayer: Layer|null = null;
+  public length: number = 0;
+  private neurons: Neuron[] = [];
 
   constructor (id: string) {
     this.id = id;
-    this.neurons = [];
-    this.length = 0;
   }
 
   public pushNeuron (neuron: Neuron) {

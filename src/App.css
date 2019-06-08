@@ -1,35 +1,41 @@
-.row {
+.App {
+  background-color: #282c34;
+  min-height: 100vh;
+  color: white;
+}
+
+.wrapper {
   display: flex;
   flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
+  padding: 2rem;
 }
-*[class*="col"] {
+
+.wrapper .viewer {
   position: relative;
-  flex-basis: 0;
-  -webkit-box-flex: 1;
-  flex-grow: 1;
+  flex: 0 0 100%;
   max-width: 100%;
-  min-height: 1px;
-  width: 100%;
-  padding: 0 15px;
-  box-sizing: border-box;
 }
-.col-6 {
-  -webkit-box-flex: 0;
-  flex: 0 0 50%;
-  max-width: 50%;
+
+.wrapper .viewer h3 {
+  color: white;
+  font-weight: 200;
 }
+
+.wrapper .viewer[data-name="charts"] .chart-wrapper {
+  display: inline-block;
+  width: 50%;
+}
+
 .border-box {
   border: 1px solid #aaa;
 }
+
 #network-display {
   padding: 15px;
 }
 
 .chart-wrapper {
   padding: 15px;
-  margin-bottom: 15px;
 }
 .chart-wrapper:last-child {
   margin-bottom: 0;
@@ -39,7 +45,6 @@
 }
 
 #console {
-  margin-top: 15px;
   padding: 15px;
 }
 #console > #log {

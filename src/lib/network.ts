@@ -1,16 +1,16 @@
-import { Neuron } from 'lib/neuron';
-import { Layer } from 'lib/layer';
+import { Neuron } from './neuron';
+import { Layer } from './layer';
 
 export class Network {
-  private layers: Layer[];
-  private firstLayer: Layer;
-  private lastLayer: Layer;
+  private layers: Layer[] = [];
+  private firstLayer: Layer|null = null;
+  private lastLayer: Layer|null = null;
   private targets: number[];
   private inputs: number[];
-  private totalLoss: number;
-  private totalLossPrimes: number[];
-  private output: number[];
-  private learningRate: number;
+  private totalLoss: number = -1;
+  private totalLossPrimes: number[] = [];
+  private output: number[] = [];
+  private learningRate: number = 0;
 
   private nodes: any[] = [];
   private links: any[] = [];
@@ -21,11 +21,6 @@ export class Network {
     }
     this.targets = targets;
     this.inputs = inputs;
-
-    this.layers = [];
-    this.totalLoss = -1;
-    this.totalLossPrimes = [];
-    this.output = [];
   }
 
   setLearningRate (learningRate: number) {
@@ -93,8 +88,8 @@ export class Network {
     this.layers.forEach((layer: Layer) => {
       layer.calc();
     });
-    const loss = this.lastLayer.getForwardLoss(this.targets);
-    this.output = this.lastLayer.getResults();
+    const loss = this.lastLayer!.getForwardLoss(this.targets);
+    this.output = this.lastLayer!.getResults();
     this.totalLoss = loss.forward;
     this.totalLossPrimes = loss.primes;
   }
@@ -103,18 +98,18 @@ export class Network {
     const reversed = [...this.layers].reverse();
     const learningRate = this.learningRate;
     reversed.forEach(layer => {
-      if (layer.id === this.lastLayer.id) {
+      if (layer.id === this.lastLayer!.id) {
         layer.updateWeights(this.totalLossPrimes, learningRate);
       } else {
         // 순서가 거꾸로 되어있으니까 nextLayer가 계산이 먼저 끝나있다.
-        const losses = layer.nextLayer.getLosses();
+        const losses = layer.nextLayer!.getLosses();
         layer.updateWeights(losses, learningRate);
       }
     });
   }
 
   getResults () {
-    return this.lastLayer.getResults();
+    return this.lastLayer!.getResults();
   }
 
   getError () {

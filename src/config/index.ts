@@ -1,4 +1,4 @@
-import { NetworkOptions, ChartOptions } from 'types';
+import { NetworkOptions, ChartOptions } from '../types';
 
 export const networkOptions: NetworkOptions = {
   layerCount: 5,

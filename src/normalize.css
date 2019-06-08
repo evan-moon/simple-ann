@@ -3,6 +3,7 @@
   -webkit-font-smoothing: antialiased;
   outline: none;
   color: #000;
+  box-sizing: border-box;
 }
 *:focus {
    outline: none;
@@ -18,8 +19,4 @@ ul {
 }
 li {
   list-style: none;
-}
-#webpack-hot-middleware-clientOverlay * {
- color: #fff;
- font-family: Menlo, Consolas, monospace;
 }

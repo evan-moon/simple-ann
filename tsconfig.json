@@ -1,23 +1,25 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "*": ["*"],
-      "src/*": ["src/*"],
-      "lib/*": ["src/lib/*"],
-      "config/*": ["src/config/*"],
-      "graphics/*": ["src/graphics/*"],
-      "types/*": ["src/types/*"],
-      "node_modules/*": ["node_modules/*"]
-    },
-    "module": "commonjs",
     "target": "es5",
-    "sourceMap": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve"
   },
   "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": ["node_modules"],
-  "compileOnSave": false
+    "src"
+  ]
 }
