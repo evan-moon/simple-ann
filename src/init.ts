@@ -4,16 +4,10 @@
  * @deprecated
  */
 
-import NetworkView from './components/NetworkView';
-
 import { networkOptions } from './config';
 import { Network } from './lib/network';
 import { Chart } from './graphics/chart';
 import { Graph } from './graphics/graph';
-
-(function () {
-
-})();
 
 export function setLogger () {
   const logger = document.getElementById('log');
