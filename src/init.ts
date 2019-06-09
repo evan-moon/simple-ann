@@ -54,31 +54,31 @@ export function init () {
   console.log('========================================================================');
 
   // Render chart
-  function draw () {
-    // Render Error Chart
-    const errorChart = new Chart('loss-rate-chart');
-    errorChart.render();
-    errorChart.drawLine([{ label: 'Loss', data: errorDataset }]);
+  // function draw () {
+  //   // Render Error Chart
+  //   const errorChart = new Chart('loss-rate-chart');
+  //   errorChart.render();
+  //   errorChart.drawLine([{ label: 'Loss', data: errorDataset }]);
+  //
+  //   // Render Output Chart
+  //   const outputChart = new Chart('output-chart');
+  //   outputChart.render();
+  //   outputChart.drawLine(outputDataset.map((r: number[], index: number) => {
+  //     return {
+  //       label: `output${index}`,
+  //       data: r,
+  //     };
+  //   }));
+  // }
+  // draw();
 
-    // Render Output Chart
-    const outputChart = new Chart('output-chart');
-    outputChart.render();
-    outputChart.drawLine(outputDataset.map((r: number[], index: number) => {
-      return {
-        label: `output${index}`,
-        data: r,
-      };
-    }));
-  }
-  draw();
-
-  function reset () {
-    graph.destroy();
-    init();
-  }
-  const resetButton = document.getElementById('reset-button');
-  if (resetButton) {
-    resetButton.removeEventListener('click', reset);
-    resetButton.addEventListener('click', reset);
-  }
+  // function reset () {
+  //   // graph.destroy();
+  //   init();
+  // }
+  // const resetButton = document.getElementById('reset-button');
+  // if (resetButton) {
+  //   resetButton.removeEventListener('click', reset);
+  //   resetButton.addEventListener('click', reset);
+  // }
 }
