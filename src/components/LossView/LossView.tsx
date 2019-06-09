@@ -26,16 +26,20 @@ class LossView extends React.Component<Props> {
         x: {
           type: 'indexed',
           tick: {
-            count: networkOptions.learningLimit,
+            count: networkOptions.learningLimit / 50,
+            format: function (x) {
+              const number = Number(x);
+              return Math.round(number);
+            },
           },
-        },
-        y: {
-          min: 0,
         },
       },
       point: {
         show: false,
       },
+      color: {
+        pattern: ['#ffffff']
+      }
     });
 
     const columns: any[] = [

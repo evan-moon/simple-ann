@@ -32,7 +32,7 @@ class NetworkView extends React.Component<Props> {
     // .attr('transform', `translate(${width / 2}, ${height / 2})`);
 
     const link = g.append('g')
-      .style('stroke', '#aaa')
+      .style('stroke', '#ffffff')
       .selectAll('line')
       .data(links)
       .enter()
@@ -68,17 +68,17 @@ class NetworkView extends React.Component<Props> {
         .attr('x2', d => d.targetNode.x)
         .attr('y2', d => d.targetNode.y);
 
-      node.attr('r', 15)
-        .style('fill', '#d9d9d9')
-        .style('stroke', '#969696')
+      node.attr('r', 12)
+        .style('fill', 'transparent')
+        .style('stroke', '#ffffff')
         .style('stroke-width', '1px')
-        .attr('cx', d => d.x + 6)
-        .attr('cy', d => d.y - 6);
+        .attr('cx', d => d.x)
+        .attr('cy', d => d.y);
 
-      label.attr('x', d => d.x)
-        .attr('y', d => d.y)
-        .style('font-size', '14px')
-        .style('fill', '#4393c3');
+      label.attr('x', d => d.x - 15)
+        .attr('y', d => d.y - 17)
+        .style('font-size', '12px')
+        .style('fill', '#ffffff');
     });
   }
 

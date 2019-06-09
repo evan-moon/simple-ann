@@ -26,16 +26,20 @@ class OutputView extends React.Component<Props> {
         x: {
           type: 'indexed',
           tick: {
-            count: networkOptions.learningLimit,
+            count: networkOptions.learningLimit / 50,
+            format: function (x) {
+              const number = Number(x);
+              return Math.round(number);
+            },
           },
-        },
-        y: {
-          min: 0,
         },
       },
       point: {
         show: false,
       },
+      color: {
+        pattern: ['#48cfad', '#7986cb', '#e8eaf6', '#ffbb78', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5']
+      }
     });
 
     const columns: any[] = outputs.map((data: number[], index: number) => {
