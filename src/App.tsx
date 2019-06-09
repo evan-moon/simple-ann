@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 
 import { Network } from "./lib/network";
@@ -39,14 +39,16 @@ for (let i = 0; i < networkOptions.learningLimit; i++) {
   });
 }
 
-console.log('============================== Result ==================================');
-console.log(`Loss: ${network.getError()}`);
-console.log(`Inputs: [${inputs}]`);
-console.log(`Outputs: [${network.getResults()}]`);
-console.log(`Targets: [${targets}]`);
-console.log('========================================================================');
-
 const App: React.FC = () => {
+  useEffect(() => {
+    console.log('============================== Result ==================================');
+    console.log(`Loss: ${network.getError()}`);
+    console.log(`Inputs: [${inputs}]`);
+    console.log(`Outputs: [${network.getResults()}]`);
+    console.log(`Targets: [${targets}]`);
+    console.log('========================================================================');
+  }, []);
+
   return (
     <div className="App">
       <div className="wrapper">
@@ -54,9 +56,6 @@ const App: React.FC = () => {
           <div id="network-display" className="border-box">
             <h3>Network</h3>
             <NetworkView nodes={networkDataset.nodes} links={networkDataset.links} />
-          </div>
-          <div>
-            <button id="reset-button">Reset</button>
           </div>
         </div>
         <div className="viewer" data-name="charts">
