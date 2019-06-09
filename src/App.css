@@ -47,9 +47,3 @@
 #console {
   padding: 15px;
 }
-#console > #log {
-  padding: 15px;
-  background-color: #000;
-  color: #fff;
-  font-family: Menlo, Consolas, monospace;
-}

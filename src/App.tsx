@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import LogView from './components/LogView';
 
 const App: React.FC = () => {
   return (
@@ -27,7 +28,7 @@ const App: React.FC = () => {
         <div className="viewer" data-name="logger">
           <div id="console" className="border-box">
             <h3>Console</h3>
-            <div id="log"></div>
+            <LogView />
           </div>
         </div>
       </div>

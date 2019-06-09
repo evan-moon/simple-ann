@@ -9,23 +9,6 @@ import { Network } from './lib/network';
 import { Chart } from './graphics/chart';
 import { Graph } from './graphics/graph';
 
-export function setLogger () {
-  const logger = document.getElementById('log');
-  const old = console.log;
-  if (!logger) {
-    return;
-  }
-
-  console.log = function (message: string) {
-    old(message);
-    if (typeof message === 'object') {
-      logger.innerHTML += (JSON.stringify ? JSON.stringify(message) : message) + '<br />';
-    } else {
-      logger.innerHTML += message + '<br />';
-    }
-  };
-}
-
 export function init () {
   console.log('Network leaning Start...');
 

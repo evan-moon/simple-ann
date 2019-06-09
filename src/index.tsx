@@ -8,11 +8,10 @@ import 'c3/c3.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import { setLogger, init } from './init';
+import { init } from './init';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
-setLogger();
 init();
 
 // If you want your app to work offline and load faster, you can change

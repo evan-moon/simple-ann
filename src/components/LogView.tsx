@@ -1,15 +1,27 @@
 import React from 'react';
+import './LogView.css';
 
-interface Props {
-  logs: string;
-}
+class LogView extends React.Component {
+  componentDidMount () {
+    const logger = document.getElementById('logView');
+    const old = console.log;
+    if (!logger) {
+      return;
+    }
 
-class LogView extends React.Component<Props> {
+    console.log = function (message: string) {
+      old(message);
+      if (typeof message === 'object') {
+        logger.innerHTML += (JSON.stringify ? JSON.stringify(message) : message) + '<br />';
+      } else {
+        logger.innerHTML += message + '<br />';
+      }
+    };
+  }
+
   render () {
-    const { logs } = this.props;
-
     return (
-      <div id="logView">{logs}</div>
+      <div id="logView"></div>
     )
   }
 }
