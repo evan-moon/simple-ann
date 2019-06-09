@@ -5,6 +5,8 @@ import { Network } from "./lib/network";
 import { networkOptions } from "./config";
 import LogView from './components/LogView/LogView';
 import NetworkView from './components/NetworkView/NetworkView';
+import LossView from './components/LossView/LossView';
+import OutputView from "./components/OutputView/OutputView";
 
 console.log('Network leaning Start...');
 
@@ -22,10 +24,27 @@ network.setLearningRate(networkOptions.learningRate);
 
 // make chart dataset
 const networkDataset = network.getNetworkGraphicData();
-// const errorDataset: number[] = [];
-// const outputDataset: number[][] = targets.map(() => {
-//   return [];
-// });
+const errorDataset: number[] = [];
+const outputDataset: number[][] = targets.map(() => {
+  return [];
+});
+
+for (let i = 0; i < networkOptions.learningLimit; i++) {
+  network.forwardPropagation();
+  network.backPropagation();
+
+  errorDataset.push(network.getError());
+  network.getResults().forEach((output: number, index: number) => {
+    outputDataset[index].push(output);
+  });
+}
+
+console.log('============================== Result ==================================');
+console.log(`Loss: ${network.getError()}`);
+console.log(`Inputs: [${inputs}]`);
+console.log(`Outputs: [${network.getResults()}]`);
+console.log(`Targets: [${targets}]`);
+console.log('========================================================================');
 
 const App: React.FC = () => {
   return (
@@ -43,11 +62,11 @@ const App: React.FC = () => {
         <div className="viewer" data-name="charts">
           <div id="loss-rate-chart" className="chart-wrapper border-box">
             <h3>Error Loss</h3>
-            <div data-name="chart"></div>
+            <LossView losses={errorDataset} />
           </div>
           <div id="output-chart" className="chart-wrapper border-box">
             <h3>Outputs</h3>
-            <div data-name="chart"></div>
+            <OutputView outputs={outputDataset}/>
           </div>
         </div>
         <div className="viewer" data-name="logger">
@@ -59,6 +78,6 @@ const App: React.FC = () => {
       </div>
     </div>
   );
-}
+};
 
 export default App;

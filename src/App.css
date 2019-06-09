@@ -4,46 +4,6 @@
   color: white;
 }
 
-.wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 2rem;
-}
-
-.wrapper .viewer {
-  position: relative;
-  flex: 0 0 100%;
-  max-width: 100%;
-}
-
-.wrapper .viewer h3 {
-  color: white;
-  font-weight: 200;
-}
-
-.wrapper .viewer[data-name="charts"] .chart-wrapper {
-  display: inline-block;
-  width: 50%;
-}
-
-.border-box {
-  border: 1px solid #aaa;
-}
-
-#network-display {
-  padding: 15px;
-}
-
-.chart-wrapper {
-  padding: 15px;
-}
-.chart-wrapper:last-child {
-  margin-bottom: 0;
-}
 .chart-wrapper svg {
   width: 100% !important;
-}
-
-#console {
-  padding: 15px;
 }
