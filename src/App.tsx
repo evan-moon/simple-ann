@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import LogView from './components/LogView';
+import LogView from './components/LogView/LogView';
 
 const App: React.FC = () => {
   return (
