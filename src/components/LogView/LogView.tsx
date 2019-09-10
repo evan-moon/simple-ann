@@ -2,9 +2,18 @@ import React from 'react';
 import './LogView.css';
 
 class LogView extends React.Component {
+  state = {
+    originConsoleLog: () => {},
+  };
+
   componentDidMount () {
     const logger = document.getElementById('logView');
     const old = console.log;
+    this.setState({
+      ...this.state,
+      originConsoleLog: old,
+    });
+
     if (!logger) {
       return;
     }
@@ -17,6 +26,10 @@ class LogView extends React.Component {
         logger.innerHTML += message + '<br />';
       }
     };
+  }
+
+  componentWillUnmount () {
+    console.log = this.state.originConsoleLog;
   }
 
   render () {
