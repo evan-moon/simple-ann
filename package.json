@@ -7,6 +7,8 @@
     "@types/node": "12.0.7",
     "@types/react": "16.8.19",
     "@types/react-dom": "16.8.4",
+    "@types/react-redux": "^7.1.2",
+    "@types/redux-logger": "^3.0.7",
     "c3": "^0.7.1",
     "compression": "^1.7.4",
     "d3": "^5.9.2",
@@ -14,8 +16,10 @@
     "express-history-api-fallback": "^2.2.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-redux": "^7.1.1",
     "react-scripts": "3.0.1",
     "redux": "^4.0.4",
+    "redux-logger": "^3.0.6",
     "typescript": "3.5.1"
   },
   "scripts": {
