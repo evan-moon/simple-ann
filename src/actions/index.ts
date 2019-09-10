@@ -6,35 +6,35 @@ const { learningRate, learningLimit, nodePerLayer, layerCount } = networkOptions
 export const setLearningRate = (rate: number = learningRate) => {
   return {
     type: types.SET_LEARNING_RATE,
-    rate,
+    payload: { rate },
   };
 };
 
 export const setLearningLimit = (limit: number = learningLimit) => {
   return {
     type: types.SET_LEARNING_LIMIT,
-    limit,
+    payload: { limit },
   };
 };
 
 export const setNodePerLayer = (count: number = nodePerLayer) => {
   return {
     type: types.SET_NODE_PER_LAYER,
-    count,
+    payload: { count },
   };
 };
 
 export const setLayerCount = (count: number = layerCount) => {
   return {
     type: types.SET_LAYER_COUNT,
-    count,
+    payload: { count },
   };
 };
 
 export const setNodeGraphicData = (data: { nodes: any[], links: any[] }) => {
   return {
     type: types.SET_NODE_GRAPHIC_DATA,
-    data,
+    payload: { data },
   };
 };
 
