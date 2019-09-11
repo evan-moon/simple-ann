@@ -5,7 +5,7 @@ const { learningRate, learningLimit, nodePerLayer, layerCount } = networkOptions
 
 export interface ActionCreator {
   type: string;
-  payload?: Object;
+  payload: any;
   error?: boolean;
 };
 
@@ -44,20 +44,23 @@ export const setNodeGraphicData = (data: { nodes: any[], links: any[] }): Action
   };
 };
 
-export const updateErrorDataset = (): ActionCreator => {
+export const updateErrorDataset = (data: any): ActionCreator => {
   return {
     type: types.UPDATE_ERROR_DATASET,
+    payload: { data },
   };
 };
 
-export const updateOutputDataset = (): ActionCreator => {
+export const updateOutputDataset = (data: any): ActionCreator => {
   return {
     type: types.UPDATE_OUTPUT_DATASET,
+    payload: { data },
   };
 };
 
 export const setLearningResult = (): ActionCreator => {
   return {
     type: types.SET_LEARNING_RESULT,
+    payload: {},
   };
 };
