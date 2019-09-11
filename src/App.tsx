@@ -2,53 +2,10 @@ import './App.css';
 
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Network } from "./lib/network";
-import { networkOptions } from "./config";
 import LogView from './components/LogView/LogView';
 import NetworkView from './components/NetworkView/NetworkView';
 import LossView from './components/LossView/LossView';
 import OutputView from "./components/OutputView/OutputView";
-import store from './store';
-import { setInputs, setNodeGraphicData, updateErrorDataset, updateOutputDataset, setLearningResult, setTotalLoss } from './actions';
-
-console.log('Network leaning Start...');
-
-function initNetwork () {
-  const state = store.getState();
-  const { targets, layerCount, nodePerLayer, learningRate } = state;
-
-  const inputs = targets.map(target => Math.random() + target);
-  store.dispatch(setInputs(inputs));
-
-  const network = new Network(targets, inputs);
-  network.createNodes(layerCount, nodePerLayer);
-  network.setLearningRate(learningRate);
-
-  const networkDataset = network.getNetworkGraphicData();
-  store.dispatch(setNodeGraphicData(networkDataset));
-
-  const errorDataset: number[] = [];
-  const outputDataset: number[][] = targets.map(() => {
-    return [];
-  });
-
-  for (let i = 0; i < networkOptions.learningLimit; i++) {
-    network.forwardPropagation();
-    network.backPropagation();
-  
-    errorDataset.push(network.getTotalLoss());
-    network.getResults().forEach((output: number, index: number) => {
-      outputDataset[index].push(output);
-    });
-  }
-
-  store.dispatch(updateErrorDataset(errorDataset));
-  store.dispatch(updateOutputDataset(outputDataset));
-  store.dispatch(setLearningResult(network.getResults()));
-  store.dispatch(setTotalLoss(network.getTotalLoss()))
-}
-
-initNetwork();
 
 interface AppProps {
   storeState: any;

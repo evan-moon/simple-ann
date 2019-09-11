@@ -3,9 +3,14 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 import './styles';
+import bootstrapper from './lib/bootstrapper';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+const state = store.getState();
+const { targets, layerCount, nodePerLayer, learningRate, learningLimit } = state;
+bootstrapper({ targets, layerCount, nodePerLayer, learningRate, learningLimit });
 
 ReactDOM.render((
   <Provider store={ store }>
