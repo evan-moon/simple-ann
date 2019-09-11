@@ -13,6 +13,7 @@ interface AppState {
   learningLimit: number;
   nodePerLayer: number;
   layerCount: number;
+  inputs: number[];
   targets: number[];
 };
 
@@ -35,6 +36,7 @@ const initialState: AppState = {
   learningLimit,
   nodePerLayer,
   layerCount,
+  inputs: [],
   targets: getTargets(nodePerLayer),
 };
 
@@ -59,6 +61,11 @@ const rootReducer = (state: AppState = initialState, action: ActionCreator): App
       return {
         ...state,
         layerCount: action.payload.count,
+      };
+    case types.SET_INPUTS:
+      return {
+        ...state,
+        inputs: action.payload.inputs,
       };
     case types.SET_NODE_GRAPHIC_DATA:
       return {

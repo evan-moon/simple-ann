@@ -37,6 +37,13 @@ export const setLayerCount = (count: number = layerCount): ActionCreator => {
   };
 };
 
+export const setInputs = (inputs: number[]): ActionCreator => {
+  return {
+    type: types.SET_INPUTS,
+    payload: { inputs },
+  };
+};
+
 export const setNodeGraphicData = (data: { nodes: any[], links: any[] }): ActionCreator => {
   return {
     type: types.SET_NODE_GRAPHIC_DATA,
