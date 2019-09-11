@@ -53,21 +53,28 @@ export const setNodeGraphicData = (data: { nodes: any[], links: any[] }): Action
 
 export const updateErrorDataset = (data: any): ActionCreator => {
   return {
-    type: types.UPDATE_ERROR_DATASET,
+    type: types.SET_ERROR_DATASET,
     payload: { data },
   };
 };
 
 export const updateOutputDataset = (data: any): ActionCreator => {
   return {
-    type: types.UPDATE_OUTPUT_DATASET,
+    type: types.SET_OUTPUT_DATASET,
     payload: { data },
   };
 };
 
-export const setLearningResult = (): ActionCreator => {
+export const setLearningResult = (result: any): ActionCreator => {
   return {
     type: types.SET_LEARNING_RESULT,
-    payload: {},
+    payload: { result },
   };
 };
+
+export const setTotalLoss = (loss: number): ActionCreator => {
+  return {
+    type: types.SET_TOTAL_LOSS,
+    payload: { loss },
+  };
+}

@@ -15,6 +15,7 @@ interface AppState {
   layerCount: number;
   inputs: number[];
   targets: number[];
+  totalLoss: number;
 };
 
 function getTargets (nodePerLayer: number): number[] {
@@ -38,6 +39,7 @@ const initialState: AppState = {
   layerCount,
   inputs: [],
   targets: getTargets(nodePerLayer),
+  totalLoss: -1,
 };
 
 const rootReducer = (state: AppState = initialState, action: ActionCreator): AppState => {
@@ -72,12 +74,12 @@ const rootReducer = (state: AppState = initialState, action: ActionCreator): App
         ...state,
         nodeGraphicData: action.payload.data,
       };
-    case types.UPDATE_ERROR_DATASET:
+    case types.SET_ERROR_DATASET:
       return {
         ...state,
         errorDataset: action.payload.data,
       };
-    case types.UPDATE_OUTPUT_DATASET:
+    case types.SET_OUTPUT_DATASET:
       return {
         ...state,
         outputDataset: action.payload.data,
@@ -85,7 +87,12 @@ const rootReducer = (state: AppState = initialState, action: ActionCreator): App
     case types.SET_LEARNING_RESULT:
       return {
         ...state,
-        learningResult: action.payload.data,
+        learningResult: action.payload.result,
+      };
+    case types.SET_TOTAL_LOSS:
+      return {
+        ...state,
+        totalLoss: action.payload.loss,
       };
     default:
       return state;
