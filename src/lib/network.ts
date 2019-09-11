@@ -112,7 +112,7 @@ export class Network {
     return this.lastLayer!.getResults();
   }
 
-  getError () {
+  getTotalLoss () {
     return this.totalLoss;
   }
 }
