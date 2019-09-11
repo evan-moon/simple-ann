@@ -1,53 +1,79 @@
-import React, { useEffect } from 'react';
 import './App.css';
 
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Network } from "./lib/network";
 import { networkOptions } from "./config";
 import LogView from './components/LogView/LogView';
 import NetworkView from './components/NetworkView/NetworkView';
 import LossView from './components/LossView/LossView';
 import OutputView from "./components/OutputView/OutputView";
+import store from './store';
+import { setInputs, setNodeGraphicData, updateErrorDataset, updateOutputDataset, setLearningResult, setTotalLoss } from './actions';
 
 console.log('Network leaning Start...');
 
-// generate randomic inputs
-const inputs: number[] = [];
-const targets: number[] = networkOptions.targets;
-for (let i = 0; i < targets.length; i++) {
-  inputs.push(Math.random() + targets[i]);
-}
+function initNetwork () {
+  const state = store.getState();
+  const { targets, layerCount, nodePerLayer, learningRate } = state;
 
-// generate network
-const network = new Network(targets, inputs);
-network.createNodes(networkOptions.layerCount, networkOptions.nodePerLayer);
-network.setLearningRate(networkOptions.learningRate);
+  const inputs = targets.map(target => Math.random() + target);
+  store.dispatch(setInputs(inputs));
 
-// make chart dataset
-const networkDataset = network.getNetworkGraphicData();
-const errorDataset: number[] = [];
-const outputDataset: number[][] = targets.map(() => {
-  return [];
-});
+  const network = new Network(targets, inputs);
+  network.createNodes(layerCount, nodePerLayer);
+  network.setLearningRate(learningRate);
 
-for (let i = 0; i < networkOptions.learningLimit; i++) {
-  network.forwardPropagation();
-  network.backPropagation();
+  const networkDataset = network.getNetworkGraphicData();
+  store.dispatch(setNodeGraphicData(networkDataset));
 
-  errorDataset.push(network.getError());
-  network.getResults().forEach((output: number, index: number) => {
-    outputDataset[index].push(output);
+  const errorDataset: number[] = [];
+  const outputDataset: number[][] = targets.map(() => {
+    return [];
   });
+
+  for (let i = 0; i < networkOptions.learningLimit; i++) {
+    network.forwardPropagation();
+    network.backPropagation();
+  
+    errorDataset.push(network.getTotalLoss());
+    network.getResults().forEach((output: number, index: number) => {
+      outputDataset[index].push(output);
+    });
+  }
+
+  store.dispatch(updateErrorDataset(errorDataset));
+  store.dispatch(updateOutputDataset(outputDataset));
+  store.dispatch(setLearningResult(network.getResults()));
+  store.dispatch(setTotalLoss(network.getTotalLoss()))
 }
 
-const App: React.FC = () => {
+initNetwork();
+
+interface AppProps {
+  storeState: any;
+};
+
+const App: React.FC<AppProps> = (props) => {
+  const { storeState } = props;
+  const {
+    inputs,
+    targets,
+    nodeGraphicData,
+    errorDataset,
+    outputDataset,
+    learningResult,
+    totalLoss
+  } = storeState;
+
   useEffect(() => {
     console.log('============================== Result ==================================');
-    console.log(`Loss: ${network.getError()}`);
+    console.log(`Loss: ${totalLoss}`);
     console.log(`Inputs: [${inputs}]`);
-    console.log(`Outputs: [${network.getResults()}]`);
+    console.log(`Outputs: [${learningResult}]`);
     console.log(`Targets: [${targets}]`);
     console.log('========================================================================');
-  }, []);
+  });
 
   return (
     <div className="App">
@@ -55,7 +81,7 @@ const App: React.FC = () => {
         <div className="viewer" data-name="network">
           <div id="network-display" className="border-box">
             <h3>Network</h3>
-            <NetworkView nodes={networkDataset.nodes} links={networkDataset.links} />
+            <NetworkView nodes={nodeGraphicData.nodes} links={nodeGraphicData.links} />
           </div>
         </div>
         <div className="viewer" data-name="charts">
@@ -79,4 +105,10 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+const mapStateToProps = (state: any): AppProps => {
+  return {
+    storeState: state,
+  };
+};
+
+export default connect(mapStateToProps)(App);
