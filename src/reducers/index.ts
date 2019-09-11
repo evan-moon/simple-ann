@@ -13,7 +13,19 @@ interface AppState {
   learningLimit: number;
   nodePerLayer: number;
   layerCount: number;
+  targets: number[];
 };
+
+function getTargets (nodePerLayer: number): number[] {
+  const targets: number[] = [];
+  const min = 0.1;
+  const max = 1;
+  for (let i = 0; i < nodePerLayer; i++) {
+    targets.push(Math.random() * (max - min) + min);
+  }
+  return targets;
+}
+
 const initialState: AppState = {
   nodeGraphicData: null,
   errorDataset: null,
@@ -23,26 +35,51 @@ const initialState: AppState = {
   learningLimit,
   nodePerLayer,
   layerCount,
+  targets: getTargets(nodePerLayer),
 };
 
 const rootReducer = (state: AppState = initialState, action: ActionCreator): AppState => {
   switch (action.type) {
     case types.SET_LEARNING_RATE:
-      return state;
+      return {
+        ...state,
+        learningRate: action.payload.rate,
+      };
     case types.SET_LEARNING_LIMIT:
-      return state;
+      return {
+        ...state,
+        learningLimit: action.payload.limit,
+      };
     case types.SET_NODE_PER_LAYER:
-      return state;
+      return {
+        ...state,
+        nodePerLayer: action.payload.count,
+      };
     case types.SET_LAYER_COUNT:
-      return state;
+      return {
+        ...state,
+        layerCount: action.payload.count,
+      };
     case types.SET_NODE_GRAPHIC_DATA:
-      return state;
+      return {
+        ...state,
+        nodeGraphicData: action.payload.data,
+      };
     case types.UPDATE_ERROR_DATASET:
-      return state;
+      return {
+        ...state,
+        errorDataset: action.payload.data,
+      };
     case types.UPDATE_OUTPUT_DATASET:
-      return state;
+      return {
+        ...state,
+        outputDataset: action.payload.data,
+      };
     case types.SET_LEARNING_RESULT:
-      return state;
+      return {
+        ...state,
+        learningResult: action.payload.data,
+      };
     default:
       return state;
   }
