@@ -1,6 +1,24 @@
 .App {
   background-color: #282c34;
   min-height: 100vh;
+  color: white;
+}
+
+.App .border-box {
+  border: 1px solid #aaa;
+  padding: 15px;
+}
+
+.App .container-fluid > .row {
+  margin: -.5rem;
+  padding: 1rem 0;
+}
+.App .container-fluid > .row div[class*="col"] {
+  padding: .5rem;
+}
+
+.App h3, .App label {
+  color: white;
 }
 
 .chart-wrapper svg {
