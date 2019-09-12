@@ -65,25 +65,50 @@ const rootReducer = (state: AppState = initialState, action: ActionCreator): App
         ...state,
         nodeGraphicData: action.payload.data,
       };
+    case types.DESTROY_NODE_GRAPHIC_DATA:
+      return {
+        ...state,
+        nodeGraphicData: null,
+      };
     case types.SET_ERROR_DATASET:
       return {
         ...state,
         errorDataset: action.payload.data,
+      };
+    case types.DESTROY_ERROR_DATASET:
+      return {
+        ...state,
+        errorDataset: null,
       };
     case types.SET_OUTPUT_DATASET:
       return {
         ...state,
         outputDataset: action.payload.data,
       };
+    case types.DESTROY_OUTPUT_DATASET:
+      return {
+        ...state,
+        outputDataset: null,
+      };
     case types.SET_LEARNING_RESULT:
       return {
         ...state,
         learningResult: action.payload.result,
       };
+    case types.DESTROY_LEARNING_RESULT:
+      return {
+        ...state,
+        learningResult: null,
+      };
     case types.SET_TOTAL_LOSS:
       return {
         ...state,
         totalLoss: action.payload.loss,
+      };
+    case types.DESTROY_TOTAL_LOSS:
+      return {
+        ...state,
+        totalLoss: -1,
       };
     default:
       return state;

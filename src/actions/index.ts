@@ -51,17 +51,38 @@ export const setNodeGraphicData = (data: { nodes: any[], links: any[] }): Action
   };
 };
 
-export const updateErrorDataset = (data: any): ActionCreator => {
+export const destroyNodeGraphicData = (): ActionCreator => {
+  return {
+    type: types.DESTROY_NODE_GRAPHIC_DATA,
+    payload: {},
+  };
+}
+
+export const setErrorDataset = (data: any): ActionCreator => {
   return {
     type: types.SET_ERROR_DATASET,
     payload: { data },
   };
 };
 
-export const updateOutputDataset = (data: any): ActionCreator => {
+export const destroyErrorDataset = (): ActionCreator => {
+  return {
+    type: types.DESTROY_ERROR_DATASET,
+    payload: {},
+  };
+}
+
+export const setOutputDataset = (data: any): ActionCreator => {
   return {
     type: types.SET_OUTPUT_DATASET,
     payload: { data },
+  };
+};
+
+export const destroyOutputDataset = (): ActionCreator => {
+  return {
+    type: types.DESTROY_OUTPUT_DATASET,
+    payload: {},
   };
 };
 
@@ -72,9 +93,23 @@ export const setLearningResult = (result: any): ActionCreator => {
   };
 };
 
+export const destroyLearningResult = (): ActionCreator => {
+  return {
+    type: types.DESTROY_LEARNING_RESULT,
+    payload: {},
+  };
+};
+
 export const setTotalLoss = (loss: number): ActionCreator => {
   return {
     type: types.SET_TOTAL_LOSS,
     payload: { loss },
   };
-}
+};
+
+export const destroyTotalLoss = (): ActionCreator => {
+  return {
+    type: types.DESTROY_TOTAL_LOSS,
+    payload: {},
+  };
+};
