@@ -1,4 +1,4 @@
-.wrapper {
+/* .wrapper {
   display: flex;
   flex-wrap: wrap;
   padding: 2rem;
@@ -18,7 +18,7 @@
 .wrapper .viewer[data-name="charts"] .chart-wrapper {
   display: inline-block;
   width: 50%;
-}
+}*/
 
 .border-box {
   border: 1px solid #aaa;
