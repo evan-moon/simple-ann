@@ -1,5 +1,17 @@
 import store from '../store';
-import { setInputs, setNodeGraphicData, updateErrorDataset, updateOutputDataset, setLearningResult, setTotalLoss } from '../actions';
+import {
+  setInputs,
+  setNodeGraphicData,
+  destroyNodeGraphicData,
+  setErrorDataset,
+  destroyErrorDataset,
+  setOutputDataset,
+  destroyOutputDataset,
+  setLearningResult,
+  destroyLearningResult,
+  setTotalLoss,
+  destroyTotalLoss
+} from '../actions';
 import { Network } from './network';
 
 
@@ -12,6 +24,12 @@ interface BootstrapProps {
 };
 
 const bootstrapper = ({ targets, layerCount, nodePerLayer, learningRate, learningLimit }: BootstrapProps) => {
+  store.dispatch(destroyNodeGraphicData());
+  store.dispatch(destroyErrorDataset());
+  store.dispatch(destroyOutputDataset());
+  store.dispatch(destroyLearningResult());
+  store.dispatch(destroyTotalLoss());
+
   const inputs = targets.map(target => Math.random() + target);
   store.dispatch(setInputs(inputs));
 
@@ -37,8 +55,8 @@ const bootstrapper = ({ targets, layerCount, nodePerLayer, learningRate, learnin
     });
   }
 
-  store.dispatch(updateErrorDataset(errorDataset));
-  store.dispatch(updateOutputDataset(outputDataset));
+  store.dispatch(setErrorDataset(errorDataset));
+  store.dispatch(setOutputDataset(outputDataset));
   store.dispatch(setLearningResult(network.getResults()));
   store.dispatch(setTotalLoss(network.getTotalLoss()));
 };

@@ -38,7 +38,6 @@ const App: React.FC<AppProps> = (props) => {
       <Container fluid={true}>
         <Row noGutters={true}>
           <Col xs={12}>
-            <h3>Controller</h3>
             <ControlPanel />
           </Col>
           <Col xs={12}>

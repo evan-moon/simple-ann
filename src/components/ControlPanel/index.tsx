@@ -62,7 +62,7 @@ class ControlPanel extends React.Component<Props> {
     store.dispatch(setLearningLimit(learningLimit));
 
     const targets = getTargets(nodePerLayer);
-    // bootstrapper({ targets, layerCount, nodePerLayer, learningRate, learningLimit });
+    bootstrapper({ targets, layerCount, nodePerLayer, learningRate, learningLimit });
   }
 
   render () {
