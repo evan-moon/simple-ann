@@ -4,7 +4,7 @@ import { ActionCreator } from '../actions';
 
 const { learningRate, learningLimit, nodePerLayer, layerCount } = networkOptions;
 
-interface AppState {
+export interface AppState {
   nodeGraphicData: any;
   errorDataset: any;
   outputDataset: any;
