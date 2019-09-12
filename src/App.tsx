@@ -44,19 +44,19 @@ const App: React.FC<AppProps> = (props) => {
           <Col xs={12}>
             <div id="network-display" className="border-box">
               <h3>Network</h3>
-              <NetworkView nodes={nodeGraphicData.nodes} links={nodeGraphicData.links} />
+              {nodeGraphicData ? <NetworkView nodes={nodeGraphicData.nodes} links={nodeGraphicData.links} /> : null}
             </div>
           </Col>
           <Col xs={12} xl={6}>
             <div id="loss-rate-chart" className="chart-wrapper border-box">
               <h3>Error Loss</h3>
-              <LossView losses={errorDataset} />
+              {errorDataset ? <LossView losses={errorDataset} /> : null}
             </div>
           </Col>
           <Col xs={12} xl={6}>
             <div id="output-chart" className="chart-wrapper border-box">
               <h3>Outputs</h3>
-              <OutputView outputs={outputDataset}/>
+              {outputDataset ? <OutputView outputs={outputDataset}/> : null}
             </div>
           </Col>
         </Row>
