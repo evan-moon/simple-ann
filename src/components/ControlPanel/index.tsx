@@ -3,6 +3,8 @@ import React, { FormEvent } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../../reducers';
 import { Form, Col, FormControlProps, Button } from 'react-bootstrap';
+import bootstrapper from '../../lib/bootstrapper';
+import { getTargets } from '../../utils';
 
 // 나중에 Container로 분리할 것
 import store from '../../store';
@@ -58,6 +60,9 @@ class ControlPanel extends React.Component<Props> {
     store.dispatch(setLayerCount(layerCount));
     store.dispatch(setLearningRate(learningRate));
     store.dispatch(setLearningLimit(learningLimit));
+
+    const targets = getTargets(nodePerLayer);
+    // bootstrapper({ targets, layerCount, nodePerLayer, learningRate, learningLimit });
   }
 
   render () {
