@@ -7,12 +7,13 @@ import LossView from './components/LossView/LossView';
 import OutputView from "./components/OutputView/OutputView";
 import { Container, Row, Col } from 'react-bootstrap';
 import ControlPanel from './components/ControlPanel';
+import { AppState } from './reducers';
 
-interface AppProps {
-  storeState: any;
+type Props = {
+  storeState: AppState;
 };
 
-const App: React.FC<AppProps> = (props) => {
+const App: React.FC<Props> = (props) => {
   const { storeState } = props;
   const {
     inputs,
@@ -33,12 +34,16 @@ const App: React.FC<AppProps> = (props) => {
     console.log('========================================================================');
   });
 
+  function onActivate () {
+    console.log(11);
+  }
+
   return (
     <div className="App">
       <Container fluid={true}>
         <Row noGutters={true}>
           <Col xs={12}>
-            <ControlPanel />
+            <ControlPanel onActivate={onActivate} />
           </Col>
           <Col xs={12}>
             <div id="network-display" className="border-box">
@@ -64,7 +69,7 @@ const App: React.FC<AppProps> = (props) => {
   );
 };
 
-const mapStateToProps = (state: any): AppProps => {
+const mapStateToProps = (state: AppState): Props => {
   return {
     storeState: state,
   };
