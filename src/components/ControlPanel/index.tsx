@@ -1,5 +1,6 @@
 import './index.css';
 import React, { FormEvent } from 'react';
+import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { AppState } from '../../reducers';
 import { Form, Col, FormControlProps, Button } from 'react-bootstrap';
@@ -7,27 +8,41 @@ import bootstrapper from '../../lib/bootstrapper';
 import { getTargets } from '../../utils';
 
 // 나중에 Container로 분리할 것
-import store from '../../store';
 import { setLearningLimit, setNodePerLayer, setLearningRate, setLayerCount } from '../../actions';
 
-interface Props {
-  nodePerLayer: string;
-  layerCount: string;
-  learningRate: string;
-  learningLimit: string;
+const mapStateToProps = (state: AppState) => {
+  const { learningRate, learningLimit, nodePerLayer, layerCount } = state;
+  return {
+    learningRate: learningRate.toString(),
+    learningLimit: learningLimit.toString(),
+    nodePerLayer: nodePerLayer.toString(),
+    layerCount: layerCount.toString(),
+  };
 };
-interface State {
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return bindActionCreators({
+    setNodePerLayer,
+    setLayerCount,
+    setLearningRate,
+    setLearningLimit,
+  }, dispatch);
+};
+
+type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps> & {
+  onActivate: Function;
+};
+type State = {
   nodePerLayer: number;
   layerCount: number;
   learningRate: number;
   learningLimit: number;
-}
+};
 
-const nodeCounts = [1, 2, 3, 4, 5];
-const layerCounts = [1, 2, 3, 4, 5];
+const nodeCountOptions = [1, 2, 3, 4, 5];
+const layerCountOptions = [1, 2, 3, 4, 5];
 
-class ControlPanel extends React.Component<Props> {
-  state: State = {
+class ControlPanel extends React.Component<Props, State> {
+  state = {
     nodePerLayer: parseInt(this.props.nodePerLayer),
     layerCount: parseInt(this.props.layerCount),
     learningRate: parseFloat(this.props.learningRate),
@@ -56,10 +71,10 @@ class ControlPanel extends React.Component<Props> {
 
   onClickActivate () {
     const { nodePerLayer, layerCount, learningRate, learningLimit } = this.state;
-    store.dispatch(setNodePerLayer(nodePerLayer));
-    store.dispatch(setLayerCount(layerCount));
-    store.dispatch(setLearningRate(learningRate));
-    store.dispatch(setLearningLimit(learningLimit));
+    this.props.setNodePerLayer(nodePerLayer);
+    this.props.setLayerCount(layerCount);
+    this.props.setLearningRate(learningRate);
+    this.props.setLearningLimit(learningLimit);
 
     const targets = getTargets(nodePerLayer);
     bootstrapper({ targets, layerCount, nodePerLayer, learningRate, learningLimit });
@@ -75,7 +90,7 @@ class ControlPanel extends React.Component<Props> {
               as="select"
               defaultValue={this.props.nodePerLayer}
               onChange={this.onChangeNodePerLayer.bind(this)}>
-              {nodeCounts.map(num => <option value={num} key={num}>{num}</option>)}
+              {nodeCountOptions.map(num => <option value={num} key={num}>{num}</option>)}
             </Form.Control>
           </Form.Group>
           <Form.Group as={Col}>
@@ -84,7 +99,7 @@ class ControlPanel extends React.Component<Props> {
               as="select"
               defaultValue={this.props.layerCount}
               onChange={this.onChangeLayerCount.bind(this)}>
-              {layerCounts.map(num => <option value={num} key={num}>{num}</option>)}
+              {layerCountOptions.map(num => <option value={num} key={num}>{num}</option>)}
             </Form.Control>
           </Form.Group>
           <Form.Group as={Col}>
@@ -115,14 +130,4 @@ class ControlPanel extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state: AppState): Props => {
-    const { learningRate, learningLimit, nodePerLayer, layerCount } = state;
-    return {
-      learningRate: learningRate.toString(),
-      learningLimit: learningLimit.toString(),
-      nodePerLayer: nodePerLayer.toString(),
-      layerCount: layerCount.toString(),
-    };
-};
-
-export default connect(mapStateToProps)(ControlPanel);
+export default connect(mapStateToProps, mapDispatchToProps)(ControlPanel);
