@@ -1,6 +1,6 @@
 import './App.css';
 
-import React, { useEffect } from 'react';
+import React, { createRef } from 'react';
 import { connect } from 'react-redux';
 import Network from './components/Network';
 import Loss from './components/Loss';
@@ -13,56 +13,67 @@ type Props = {
   storeState: AppState;
 };
 
-const App: React.FC<Props> = (props) => {
-  const { storeState } = props;
-  const {
-    inputs,
-    targets,
-    nodeGraphicData,
-    errorDataset,
-    outputDataset,
-    learningResult,
-    totalLoss
-  } = storeState;
+class App extends React.Component<Props> {
 
-  useEffect(() => {
+  // 부모가 자식에게 접근하는 안티패턴. 추후 컨테이너 만들 때 액션으로 옮길 것
+  networkRef: any = createRef();
+  errorChartRef: any = createRef();
+  outputChartRef: any = createRef();
+
+  printResult () {
+    const { storeState: state } = this.props;
     console.log('============================== Result ==================================');
-    console.log(`Loss: ${totalLoss}`);
-    console.log(`Inputs: [${inputs}]`);
-    console.log(`Outputs: [${learningResult}]`);
-    console.log(`Targets: [${targets}]`);
+    console.log(`Loss: ${state.totalLoss}`);
+    console.log(`Inputs: [${state.inputs}]`);
+    console.log(`Outputs: [${state.learningResult}]`);
+    console.log(`Targets: [${state.targets}]`);
     console.log('========================================================================');
-  });
+  }
 
-  return (
-    <div className="App">
-      <Container fluid={true}>
-        <Row noGutters={true}>
-          <Col xs={12}>
-            <ControlPanel />
-          </Col>
-          <Col xs={12}>
-            <div id="network-display" className="border-box">
-              <h3>Network</h3>
-              {nodeGraphicData ? <Network nodes={nodeGraphicData.nodes} links={nodeGraphicData.links} /> : null}
-            </div>
-          </Col>
-          <Col xs={12} xl={6}>
-            <div id="loss-rate-chart" className="chart-wrapper border-box">
-              <h3>Error Loss</h3>
-              {errorDataset ? <Loss losses={errorDataset} /> : null}
-            </div>
-          </Col>
-          <Col xs={12} xl={6}>
-            <div id="output-chart" className="chart-wrapper border-box">
-              <h3>Outputs</h3>
-              {outputDataset ? <Output outputs={outputDataset}/> : null}
-            </div>
-          </Col>
-        </Row>
-      </Container>
-    </div>
-  );
+  componentDidMount () {
+    this.printResult();
+  }
+
+  componentDidUpdate () {
+    // 안티패턴
+    this.networkRef.current.init();
+    this.errorChartRef.current.init();
+    this.outputChartRef.current.init();
+    this.printResult();
+  }
+
+  render () {
+    const { storeState: state } = this.props;
+    return (
+      <div className="App">
+        <Container fluid={true}>
+          <Row noGutters={true}>
+            <Col xs={12}>
+              <ControlPanel />
+            </Col>
+            <Col xs={12}>
+              <div id="network-display" className="border-box">
+                <h3>Network</h3>
+                <Network ref={this.networkRef} nodes={state.nodeGraphicData.nodes} links={state.nodeGraphicData.links} />
+              </div>
+            </Col>
+            <Col xs={12} xl={6}>
+              <div id="loss-rate-chart" className="chart-wrapper border-box">
+                <h3>Error Loss</h3>
+                <Loss ref={this.errorChartRef} losses={state.errorDataset} />
+              </div>
+            </Col>
+            <Col xs={12} xl={6}>
+              <div id="output-chart" className="chart-wrapper border-box">
+                <h3>Outputs</h3>
+                <Output ref={this.outputChartRef} outputs={state.outputDataset}/>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    );
+  }
 };
 
 const mapStateToProps = (state: AppState): Props => {
