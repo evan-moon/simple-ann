@@ -28,9 +28,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   }, dispatch);
 };
 
-type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps> & {
-  onActivate: Function;
-};
+type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 type State = {
   nodePerLayer: number;
   layerCount: number;

@@ -34,10 +34,6 @@ const App: React.FC<Props> = (props) => {
     console.log('========================================================================');
   });
 
-  function onActivate () {
-    console.log(11);
-  }
-
   return (
     <div className="App">
       <Container fluid={true}>
