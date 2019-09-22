@@ -11,8 +11,16 @@ type Props = {
 class NetworkView extends React.Component<Props> {
   private selector: string = 'networkView';
 
-  componentDidMount () {
+  init () {
+    const wrapper = document.getElementById(this.selector);
     const { nodes, links } = this.props;
+
+    if (wrapper) {
+      wrapper.innerHTML = '';
+    }
+    else {
+      console.error(`There is no DOM element #${this.selector}`);
+    }
 
     let { height } = chartOptions;
     const width = document.getElementById(this.selector)!.offsetWidth;
@@ -29,8 +37,6 @@ class NetworkView extends React.Component<Props> {
       .force('x', d3.forceX())
       .force('y', d3.forceY());
     const g = svg.append('g');
-    // .attr('transform', `translate(${width / 2}, ${height / 2})`);
-
     const link = g.append('g')
       .style('stroke', '#ffffff')
       .selectAll('line')
@@ -82,13 +88,13 @@ class NetworkView extends React.Component<Props> {
     });
   }
 
-  componentWillUnmount () {
-    d3.select(`#${this.selector}>div[data-name="chart"]`).select('svg').remove();
+  componentDidMount () {
+    this.init();
   }
 
   render () {
     return (
-      <div id="networkView"></div>
+      <div id={this.selector}></div>
     )
   }
 }

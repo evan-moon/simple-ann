@@ -1,18 +1,26 @@
 import React from 'react';
 import * as c3 from "c3";
-import {chartOptions, networkOptions} from "../../config/index";
+import {chartOptions, networkOptions} from "../../config";
 
 type Props = {
-  outputs: number[][];
+  losses: number[];
 }
 
-class OutputView extends React.Component<Props> {
-  private label: string = 'Output';
-  private selector: string = 'outputView';
+class LossView extends React.Component<Props> {
+  private label: string = 'Loss';
+  private selector: string = 'lossView';
   private chart: any = null;
 
-  componentDidMount () {
-    const { outputs } = this.props;
+  init () {
+    const wrapper = document.getElementById(this.selector);
+    const { losses } = this.props;
+
+    if (wrapper) {
+      wrapper.innerHTML = '';
+    }
+    else {
+      console.error(`There is no DOM element #${this.selector}`);
+    }
 
     this.chart = c3.generate({
       bindto: `#${this.selector}`,
@@ -38,21 +46,26 @@ class OutputView extends React.Component<Props> {
         show: false,
       },
       color: {
-        pattern: ['#48cfad', '#7986cb', '#e8eaf6', '#ffbb78', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5']
+        pattern: ['#ffffff']
       }
     });
 
-    const columns: any[] = outputs.map((data: number[], index: number) => {
-      return [`${this.label}${index}`, ...data];
-    });
+    const columns: any[] = [
+      [this.label, ...losses]
+    ];
     this.chart.load({ columns });
+  }
+
+  componentDidMount () {
+    console.log('loss view');
+    this.init();
   }
 
   render () {
     return (
-      <div id="outputView"></div>
+      <div id={this.selector}></div>
     )
   }
 }
 
-export default OutputView;
+export default LossView;
