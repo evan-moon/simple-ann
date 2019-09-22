@@ -2,7 +2,7 @@ import React from 'react';
 import * as c3 from "c3";
 import {chartOptions, networkOptions} from "../../config";
 
-interface Props {
+type Props = {
   losses: number[];
 }
 

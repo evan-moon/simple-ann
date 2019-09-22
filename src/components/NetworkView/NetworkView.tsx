@@ -3,7 +3,7 @@ import { GraphNode, GraphLink } from '../../types/index';
 import { chartOptions } from '../../config/index';
 import * as d3 from "d3";
 
-interface Props {
+type Props = {
   nodes: GraphNode[];
   links: GraphLink[];
 }
