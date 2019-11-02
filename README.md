@@ -1,5 +1,5 @@
-# simple-ann
-A simple artificial neural network program with visualization.
+# Simple Ann
+> A simple artificial neural network program with visualization.
 
 [Live Demo](https://simple-ann.herokuapp.com/)
 
