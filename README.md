@@ -1,6 +1,8 @@
 # Simple Ann
 > A simple artificial neural network program with visualization.
 
+![img](./thumb.png)
+
 [Live Demo](https://simple-ann.herokuapp.com/)
 
 ## Installation
