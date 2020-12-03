@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/simple-ann/static/css/main.6773f949.chunk.css",
+    "main.js": "/simple-ann/static/js/main.65b88e67.chunk.js",
+    "main.js.map": "/simple-ann/static/js/main.65b88e67.chunk.js.map",
+    "runtime~main.js": "/simple-ann/static/js/runtime~main.cd6200da.js",
+    "runtime~main.js.map": "/simple-ann/static/js/runtime~main.cd6200da.js.map",
+    "static/css/2.c3cb89c7.chunk.css": "/simple-ann/static/css/2.c3cb89c7.chunk.css",
+    "static/js/2.d52eb26a.chunk.js": "/simple-ann/static/js/2.d52eb26a.chunk.js",
+    "static/js/2.d52eb26a.chunk.js.map": "/simple-ann/static/js/2.d52eb26a.chunk.js.map",
+    "index.html": "/simple-ann/index.html",
+    "precache-manifest.62f0a9a2a248d0c71c17e6282f70b0de.js": "/simple-ann/precache-manifest.62f0a9a2a248d0c71c17e6282f70b0de.js",
+    "service-worker.js": "/simple-ann/service-worker.js",
+    "static/css/2.c3cb89c7.chunk.css.map": "/simple-ann/static/css/2.c3cb89c7.chunk.css.map",
+    "static/css/main.6773f949.chunk.css.map": "/simple-ann/static/css/main.6773f949.chunk.css.map"
+  }
+}
