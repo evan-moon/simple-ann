@@ -1,9 +1,9 @@
 import './index.css';
-import React, { FormEvent } from 'react';
+import React, { ChangeEvent } from 'react';
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { AppState } from '../../reducers';
-import { Form, Col, FormControlProps, Button } from 'react-bootstrap';
+import { Form, Col, Button } from 'react-bootstrap';
 import bootstrapper from '../../lib/bootstrapper';
 import { getTargets } from '../../utils';
 
@@ -47,22 +47,22 @@ class ControlPanel extends React.Component<Props, State> {
     learningLimit: parseFloat(this.props.learningLimit),
   };
 
-  onChangeNodePerLayer (event: FormEvent<FormControlProps>) {
+  onChangeNodePerLayer (event: ChangeEvent<HTMLSelectElement>) {
     const value: number = parseInt((event.currentTarget as any).value);
     this.setState({ ...this.state, nodePerLayer: value });
   }
 
-  onChangeLayerCount (event: FormEvent<FormControlProps>) {
+  onChangeLayerCount (event: ChangeEvent<HTMLSelectElement>) {
     const value: number = parseInt((event.currentTarget as any).value);
     this.setState({ ...this.state, layerCount: value });
   }
 
-  onChangeLearningRate (event: FormEvent<FormControlProps>) {
+  onChangeLearningRate (event: ChangeEvent<HTMLInputElement>) {
     const value: number = parseFloat((event.currentTarget as any).value);
     this.setState({ ...this.state, learningRate: value });
   }
 
-  onChangeLearningLimit (event: FormEvent<FormControlProps>) {
+  onChangeLearningLimit (event: ChangeEvent<HTMLInputElement>) {
     const value: number = parseFloat((event.currentTarget as any).value);
     this.setState({ ...this.state, learningLimit: value });
   }
