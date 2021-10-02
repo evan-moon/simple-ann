@@ -3,7 +3,7 @@
 
 ![img](./thumb.png)
 
-[Live Demo](https://simple-ann.herokuapp.com/)
+[Live Demo](https://evan-moon.github.io/simple-ann/)
 
 ## Installation
 ```shell
